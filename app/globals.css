@@ -1,0 +1,273 @@
+/*
+ * Identidade visual do Wiki SES-MS (Task 10.1 / Requirement 9.1).
+ *
+ * ATENÇÃO: o esquema de cores abaixo é um PLACEHOLDER institucional para uma
+ * secretaria estadual de saúde (tons de verde/azul). Ele deve ser substituído
+ * pelos ativos oficiais da marca da SES-MS (paleta, logotipo e tipografia)
+ * quando o material de identidade visual oficial estiver disponível.
+ */
+
+:root {
+  --foreground: #171717;
+  --background: #f5f7f9;
+  --surface: #ffffff;
+
+  /* Paleta institucional placeholder (saúde/estado) */
+  --primary: #0a6b3b; /* verde institucional */
+  --primary-dark: #075029;
+  --primary-contrast: #ffffff;
+  --accent: #1b5e9c; /* azul de apoio */
+  --border: #d9e0e3;
+  --muted: #5b6770;
+
+  --max-width: 72rem;
+  --radius: 6px;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  color: var(--foreground);
+  background: var(--background);
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--accent);
+}
+
+/* ---- Estrutura geral (layout compartilhado público e restrito) ---- */
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.site-header {
+  background: var(--primary);
+  color: var(--primary-contrast);
+  border-bottom: 4px solid var(--primary-dark);
+}
+
+.site-header__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--primary-contrast);
+  text-decoration: none;
+}
+
+.site-brand__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--primary-contrast);
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.site-brand__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.site-brand__subtitle {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.site-nav a,
+.site-nav button {
+  color: var(--primary-contrast);
+  text-decoration: none;
+  font: inherit;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.site-nav a:hover,
+.site-nav button:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.site-nav__cta {
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+}
+
+.site-main {
+  flex: 1;
+}
+
+main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  width: 100%;
+}
+
+.site-footer {
+  background: var(--primary-dark);
+  color: var(--primary-contrast);
+  margin-top: 2rem;
+}
+
+.site-footer__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.5rem;
+  font-size: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  justify-content: space-between;
+}
+
+.site-footer a {
+  color: var(--primary-contrast);
+}
+
+/* ---- Componentes de conteúdo ---- */
+
+h1 {
+  margin-bottom: 1rem;
+}
+
+h2 {
+  margin: 1.5rem 0 0.75rem;
+}
+
+p {
+  margin-bottom: 0.75rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.card:hover {
+  border-color: var(--primary);
+}
+
+.card h3 {
+  margin-bottom: 0.5rem;
+  color: var(--primary-dark);
+}
+
+.card p {
+  color: var(--muted);
+  margin: 0;
+}
+
+.hero {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 6px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+/* ---- Formulários (login e edição) ---- */
+
+.form-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  max-width: 26rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.form-field label {
+  font-weight: 600;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font: inherit;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--primary-contrast);
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.6rem 1.1rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.form-error {
+  color: #b00020;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}

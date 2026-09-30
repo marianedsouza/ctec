@@ -1,0 +1,124 @@
+// Schema do Prisma para o Wiki SES-MS.
+// Modelos de domínio: Usuario, Categoria (hierárquica), Pagina,
+// VersaoPagina e EtapaFederalizacao. Definidos conforme design.md
+// (seção "Modelos de Dados").
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Perfis de acesso dos usuários da SES-MS.
+enum Perfil {
+  admin
+  editor
+  leitor
+}
+
+// Dimensão da árvore de categorias: áreas de atuação ou temas.
+enum TipoCategoria {
+  area
+  tema
+}
+
+// Visibilidade de uma página: pública (cidadão) ou restrita (equipe).
+enum Visibilidade {
+  publico
+  restrito
+}
+
+// Status de uma etapa de federalização da RNDS.
+enum StatusEtapa {
+  nao_iniciada
+  em_andamento
+  concluida
+}
+
+model Usuario {
+  id        String   @id @default(cuid())
+  nome      String
+  email     String   @unique
+  senhaHash String
+  perfil    Perfil   @default(leitor)
+  criadoEm  DateTime @default(now())
+
+  // Relações
+  paginas       Pagina[]        @relation("PaginaAutor")
+  versoes       VersaoPagina[]  @relation("VersaoAutor")
+
+  @@map("usuarios")
+}
+
+model Categoria {
+  id             String        @id @default(cuid())
+  nome           String
+  slug           String        @unique
+  tipo           TipoCategoria
+  categoriaPaiId String?
+  ordem          Int           @default(0)
+
+  // Relação hierárquica auto-referenciada (árvore)
+  categoriaPai Categoria?  @relation("CategoriaHierarquia", fields: [categoriaPaiId], references: [id], onDelete: SetNull)
+  filhos       Categoria[] @relation("CategoriaHierarquia")
+
+  // Páginas pertencentes a esta categoria
+  paginas Pagina[]
+
+  @@index([categoriaPaiId])
+  @@index([tipo])
+  @@map("categorias")
+}
+
+model Pagina {
+  id           String       @id @default(cuid())
+  titulo       String
+  slug         String       @unique
+  conteudo     String
+  visibilidade Visibilidade @default(restrito)
+  categoriaId  String
+  autorId      String
+  atualizadoEm DateTime     @updatedAt
+  criadoEm     DateTime     @default(now())
+
+  // Relações
+  categoria Categoria      @relation(fields: [categoriaId], references: [id], onDelete: Restrict)
+  autor     Usuario        @relation("PaginaAutor", fields: [autorId], references: [id], onDelete: Restrict)
+  versoes   VersaoPagina[]
+
+  @@index([categoriaId])
+  @@index([autorId])
+  @@index([visibilidade])
+  @@map("paginas")
+}
+
+model VersaoPagina {
+  id       String   @id @default(cuid())
+  paginaId String
+  titulo   String
+  conteudo String
+  autorId  String
+  criadaEm DateTime @default(now())
+
+  // Relações
+  pagina Pagina  @relation(fields: [paginaId], references: [id], onDelete: Cascade)
+  autor  Usuario @relation("VersaoAutor", fields: [autorId], references: [id], onDelete: Restrict)
+
+  @@index([paginaId])
+  @@index([autorId])
+  @@map("versoes_pagina")
+}
+
+model EtapaFederalizacao {
+  id        String      @id @default(cuid())
+  nome      String
+  ordem     Int
+  status    StatusEtapa @default(nao_iniciada)
+  descricao String
+
+  @@index([ordem])
+  @@map("etapas_federalizacao")
+}
