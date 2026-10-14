@@ -8,11 +8,7 @@ import { obterPorSlug } from "@/lib/services/paginas";
 
 export const dynamic = "force-dynamic";
 
-export default async function PaginaView({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function PaginaView({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const sessao = await obterSessao();
   const pagina = await obterPorSlug(slug, sessao);
@@ -24,9 +20,13 @@ export default async function PaginaView({
 
   return (
     <main>
-      <h1>{pagina.titulo}</h1>
-      {/* Conteúdo sanitizado no servidor antes de exibir (Req 4.5). */}
-      <article dangerouslySetInnerHTML={{ __html: pagina.conteudo }} />
+      <article className="prose">
+        <div className="page-header">
+          <h1>{pagina.titulo}</h1>
+        </div>
+        {/* Conteúdo sanitizado no servidor antes de exibir (Req 4.5). */}
+        <div dangerouslySetInnerHTML={{ __html: pagina.conteudo }} />
+      </article>
     </main>
   );
 }

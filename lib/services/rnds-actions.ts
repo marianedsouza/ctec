@@ -22,9 +22,7 @@ import {
 } from "@/lib/services/rnds";
 
 // Resultado padronizado das actions para consumo no cliente.
-export type ResultadoAcaoEtapa =
-  | { ok: true }
-  | { ok: false; erro: string };
+export type ResultadoAcaoEtapa = { ok: true } | { ok: false; erro: string };
 
 interface DadosEtapa {
   nome: string;
@@ -38,9 +36,7 @@ function revalidarSecaoRnds(): void {
   revalidatePath("/editor/rnds");
 }
 
-export async function criarEtapaAction(
-  dados: DadosEtapa
-): Promise<ResultadoAcaoEtapa> {
+export async function criarEtapaAction(dados: DadosEtapa): Promise<ResultadoAcaoEtapa> {
   await exigirPermissao("editar_pagina");
 
   try {
@@ -63,7 +59,7 @@ export async function criarEtapaAction(
 
 export async function atualizarEtapaAction(
   id: string,
-  dados: Partial<DadosEtapa>
+  dados: Partial<DadosEtapa>,
 ): Promise<ResultadoAcaoEtapa> {
   await exigirPermissao("editar_pagina");
 
@@ -74,15 +70,12 @@ export async function atualizarEtapaAction(
   } catch (erro) {
     return {
       ok: false,
-      erro:
-        erro instanceof Error ? erro.message : "Erro ao atualizar a etapa.",
+      erro: erro instanceof Error ? erro.message : "Erro ao atualizar a etapa.",
     };
   }
 }
 
-export async function removerEtapaAction(
-  id: string
-): Promise<ResultadoAcaoEtapa> {
+export async function removerEtapaAction(id: string): Promise<ResultadoAcaoEtapa> {
   await exigirPermissao("editar_pagina");
 
   try {

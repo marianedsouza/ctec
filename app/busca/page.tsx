@@ -7,12 +7,7 @@
 
 import Link from "next/link";
 import { obterSessao } from "@/lib/services/auth";
-import {
-  buscar,
-  MARCADOR_INICIO,
-  MARCADOR_FIM,
-  type ResultadoBusca,
-} from "@/lib/services/busca";
+import { buscar, MARCADOR_INICIO, MARCADOR_FIM, type ResultadoBusca } from "@/lib/services/busca";
 
 // A busca depende da sessão/requisição, portanto renderização dinâmica.
 export const dynamic = "force-dynamic";
@@ -56,18 +51,22 @@ function renderTrecho(trecho: string): React.ReactNode[] {
 function ListaResultados({ resultados }: { resultados: ResultadoBusca[] }) {
   if (resultados.length === 0) {
     // Ausência de resultados indicada explicitamente (Req 6.3).
-    return <p>Nenhum resultado encontrado.</p>;
+    return (
+      <div className="empty-state">
+        <p>Nenhum resultado encontrado. Tente outro termo ou verifique a grafia.</p>
+      </div>
+    );
   }
 
   return (
-    <ul>
+    <ul className="result-list">
       {resultados.map((resultado) => (
-        <li key={resultado.paginaId}>
+        <li key={resultado.paginaId} className="result-item">
           <h2>
             <Link href={`/paginas/${resultado.slug}`}>{resultado.titulo}</Link>
           </h2>
-          <p>{renderTrecho(resultado.trecho)}</p>
-          <small>/paginas/{resultado.slug}</small>
+          <p className="result-item__snippet">{renderTrecho(resultado.trecho)}</p>
+          <span className="result-item__slug">/paginas/{resultado.slug}</span>
         </li>
       ))}
     </ul>
@@ -88,30 +87,47 @@ export default async function BuscaPage({
 
   return (
     <main>
-      <h1>Busca</h1>
+      <div className="page-header">
+        <h1>Busca</h1>
+        <p className="page-header__lead">
+          Pesquise em todo o conteúdo público do Wiki SES-MS por título e texto das páginas. Os
+          termos encontrados aparecem destacados nos resultados.
+        </p>
+      </div>
 
-      <form action="/busca" method="get" role="search">
-        <label htmlFor="q">Buscar no Wiki SES-MS</label>
-        <input
-          id="q"
-          type="search"
-          name="q"
-          defaultValue={termo}
-          placeholder="Digite um termo de busca"
-          aria-label="Termo de busca"
-        />
-        <button type="submit">Buscar</button>
-      </form>
+      <div className="search-panel">
+        <form className="search-form" action="/busca" method="get" role="search">
+          <div className="search-form__field">
+            <label htmlFor="q">Termo de busca</label>
+            <input
+              id="q"
+              type="search"
+              name="q"
+              defaultValue={termo}
+              placeholder="Ex.: RNDS, federalização, بنظام de_regs"
+              aria-label="Termo de busca"
+            />
+          </div>
+          <button type="submit" className="btn-primary">
+            Buscar
+          </button>
+        </form>
+      </div>
 
       {termo.length > 0 ? (
         <section aria-live="polite">
-          <p>
-            Resultados para <strong>{termo}</strong>:
+          <p className="search-summary">
+            {resultados.length === 1
+              ? "1 resultado encontrado para "
+              : `${resultados.length} resultados encontrados para `}
+            <strong>{termo}</strong>
           </p>
           <ListaResultados resultados={resultados} />
         </section>
       ) : (
-        <p>Informe um termo para iniciar a busca.</p>
+        <div className="empty-state">
+          <p>Informe um termo acima para iniciar a busca.</p>
+        </div>
       )}
     </main>
   );

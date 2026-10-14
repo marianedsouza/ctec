@@ -3,7 +3,8 @@
 // Server Component: resolve a sessão no servidor para decidir entre exibir o
 // acesso à "Área restrita"/login (usuário anônimo) ou o nome do usuário e o
 // botão "Sair" (usuário autenticado). A navegação aponta para todas as rotas
-// existentes: Início, Categorias, RNDS e Busca.
+// existentes: Início, Categorias, RNDS e Busca. O formulário de busca é um GET
+// puro para /busca, portanto funciona sem JavaScript.
 
 import Link from "next/link";
 import { signOut } from "@/auth";
@@ -38,8 +39,9 @@ export default async function SiteHeader() {
               <Link href="/editor/rnds" className="site-nav__cta">
                 Área restrita
               </Link>
-              <span aria-hidden="true">·</span>
-              <span title={sessao.email}>{sessao.nome || sessao.email}</span>
+              <span className="site-nav__user" title={sessao.email}>
+                {sessao.nome || sessao.email}
+              </span>
               <form
                 action={async () => {
                   "use server";
@@ -51,10 +53,24 @@ export default async function SiteHeader() {
             </>
           ) : (
             <Link href="/login" className="site-nav__cta">
-              Entrar (área restrita)
+              Entrar
             </Link>
           )}
         </nav>
+
+        <form className="site-search" action="/busca" method="get" role="search">
+          <input
+            className="site-search__input"
+            id="busca-cabecalho"
+            type="search"
+            name="q"
+            placeholder="Buscar no wiki…"
+            aria-label="Buscar páginas no Wiki SES-MS"
+          />
+          <button className="site-search__button" type="submit">
+            Buscar
+          </button>
+        </form>
       </div>
     </header>
   );

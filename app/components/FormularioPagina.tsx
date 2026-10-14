@@ -8,10 +8,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import EditorTipTap from "@/app/components/EditorTipTap";
-import {
-  criarPaginaAction,
-  atualizarPaginaAction,
-} from "@/lib/services/paginas-actions";
+import { criarPaginaAction, atualizarPaginaAction } from "@/lib/services/paginas-actions";
 
 type Visibilidade = "publico" | "restrito";
 
@@ -32,21 +29,16 @@ interface FormularioPaginaProps {
   };
 }
 
-export default function FormularioPagina({
-  categorias,
-  pagina,
-}: FormularioPaginaProps) {
+export default function FormularioPagina({ categorias, pagina }: FormularioPaginaProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   const [titulo, setTitulo] = useState(pagina?.titulo ?? "");
   const [conteudo, setConteudo] = useState(pagina?.conteudo ?? "");
   const [visibilidade, setVisibilidade] = useState<Visibilidade>(
-    pagina?.visibilidade ?? "restrito"
+    pagina?.visibilidade ?? "restrito",
   );
-  const [categoriaId, setCategoriaId] = useState(
-    pagina?.categoriaId ?? categorias[0]?.id ?? ""
-  );
+  const [categoriaId, setCategoriaId] = useState(pagina?.categoriaId ?? categorias[0]?.id ?? "");
   const [erro, setErro] = useState<string | null>(null);
 
   const modoEdicao = Boolean(pagina);
@@ -81,31 +73,26 @@ export default function FormularioPagina({
   }
 
   return (
-    <form onSubmit={aoSubmeter}>
+    <form onSubmit={aoSubmeter} className="editor-form">
       {erro && (
-        <p role="alert" style={{ color: "#b00020" }}>
+        <p role="alert" className="form-error">
           {erro}
         </p>
       )}
 
-      <div style={{ marginBottom: "1rem" }}>
-        <label htmlFor="titulo" style={{ display: "block" }}>
-          Título
-        </label>
+      <div className="form-field">
+        <label htmlFor="titulo">Título</label>
         <input
           id="titulo"
           type="text"
           value={titulo}
           onChange={(e) => setTitulo(e.target.value)}
           required
-          style={{ width: "100%" }}
         />
       </div>
 
-      <div style={{ marginBottom: "1rem" }}>
-        <label htmlFor="categoria" style={{ display: "block" }}>
-          Categoria
-        </label>
+      <div className="form-field">
+        <label htmlFor="categoria">Categoria</label>
         <select
           id="categoria"
           value={categoriaId}
@@ -120,7 +107,7 @@ export default function FormularioPagina({
         </select>
       </div>
 
-      <fieldset style={{ marginBottom: "1rem" }}>
+      <fieldset className="fieldset-visibilidade">
         <legend>Visibilidade</legend>
         <label>
           <input
@@ -132,7 +119,7 @@ export default function FormularioPagina({
           />
           Restrito (equipe SES-MS)
         </label>
-        <label style={{ marginLeft: "1rem" }}>
+        <label>
           <input
             type="radio"
             name="visibilidade"
@@ -144,17 +131,13 @@ export default function FormularioPagina({
         </label>
       </fieldset>
 
-      <div style={{ marginBottom: "1rem" }}>
-        <label style={{ display: "block" }}>Conteúdo</label>
+      <div className="form-field">
+        <label htmlFor="conteudo-editor">Conteúdo</label>
         <EditorTipTap conteudoInicial={conteudo} onChange={setConteudo} />
       </div>
 
-      <button type="submit" disabled={isPending}>
-        {isPending
-          ? "Salvando..."
-          : modoEdicao
-            ? "Salvar alterações"
-            : "Criar página"}
+      <button type="submit" className="btn-primary" disabled={isPending}>
+        {isPending ? "Salvando..." : modoEdicao ? "Salvar alterações" : "Criar página"}
       </button>
     </form>
   );

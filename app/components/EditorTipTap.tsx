@@ -16,11 +16,7 @@ interface EditorTipTapProps {
 }
 
 // Barra de ferramentas mínima com as formatações do StarterKit.
-function BarraFerramentas({
-  editor,
-}: {
-  editor: ReturnType<typeof useEditor>;
-}) {
+function BarraFerramentas({ editor }: { editor: ReturnType<typeof useEditor> }) {
   if (!editor) {
     return null;
   }
@@ -64,19 +60,9 @@ function BarraFerramentas({
   ];
 
   return (
-    <div
-      role="toolbar"
-      aria-label="Ferramentas de formatação"
-      style={{ display: "flex", gap: "0.25rem", flexWrap: "wrap", marginBottom: "0.5rem" }}
-    >
+    <div className="editor__toolbar" role="toolbar" aria-label="Ferramentas de formatação">
       {botoes.map((b) => (
-        <button
-          key={b.rotulo}
-          type="button"
-          onClick={b.acao}
-          aria-pressed={b.ativo}
-          style={{ fontWeight: b.ativo ? 700 : 400 }}
-        >
+        <button key={b.rotulo} type="button" onClick={b.acao} aria-pressed={b.ativo}>
           {b.rotulo}
         </button>
       ))}
@@ -84,15 +70,18 @@ function BarraFerramentas({
   );
 }
 
-export default function EditorTipTap({
-  conteudoInicial = "",
-  onChange,
-}: EditorTipTapProps) {
+export default function EditorTipTap({ conteudoInicial = "", onChange }: EditorTipTapProps) {
   const editor = useEditor({
     extensions: [StarterKit],
     content: conteudoInicial,
     // Evita divergência de hidratação no App Router (SSR).
     immediatelyRender: false,
+    editorProps: {
+      attributes: {
+        id: "conteudo-editor",
+        class: "tiptap",
+      },
+    },
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
     },
@@ -108,16 +97,11 @@ export default function EditorTipTap({
 
   return (
     <div>
-      <BarraFerramentas editor={editor} />
-      <div
-        style={{
-          border: "1px solid #ccc",
-          borderRadius: 4,
-          padding: "0.5rem",
-          minHeight: "12rem",
-        }}
-      >
-        <EditorContent editor={editor} />
+      <div className="editor">
+        <BarraFerramentas editor={editor} />
+        <div className="editor__area">
+          <EditorContent editor={editor} />
+        </div>
       </div>
     </div>
   );

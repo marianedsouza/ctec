@@ -11,11 +11,7 @@ import HistoricoVersoes from "@/app/components/HistoricoVersoes";
 
 export const dynamic = "force-dynamic";
 
-export default async function VersoesPaginaPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function VersoesPaginaPage({ params }: { params: Promise<{ slug: string }> }) {
   await exigirPermissao("editar_pagina");
   const { slug } = await params;
 
@@ -44,9 +40,7 @@ export default async function VersoesPaginaPage({
         Página: <strong>{pagina.titulo}</strong>
       </p>
       <p>
-        <Link href={`/editor/paginas/${pagina.slug}/editar`}>
-          Voltar para edição
-        </Link>
+        <Link href={`/editor/paginas/${pagina.slug}/editar`}>Voltar para edição</Link>
       </p>
 
       <HistoricoVersoes paginaId={pagina.id} versoes={versoesResumo} />

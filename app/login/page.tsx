@@ -92,13 +92,15 @@ function FormularioLogin() {
 export default function LoginPage() {
   return (
     <main>
-      <h1>Acesso à área restrita</h1>
-      <p>
-        Área destinada à equipe da SES-MS. Informe suas credenciais para editar
-        conteúdo, categorias e etapas da federalização.
-      </p>
+      <div className="page-header">
+        <h1>Acesso à área restrita</h1>
+        <p className="page-header__lead">
+          Área destinada à equipe da SES-MS. Informe suas credenciais para editar conteúdo,
+          categorias e etapas da federalização.
+        </p>
+      </div>
 
-      <Suspense fallback={<p>Carregando formulário…</p>}>
+      <Suspense fallback={<p className="muted">Carregando formulário…</p>}>
         <FormularioLogin />
       </Suspense>
     </main>

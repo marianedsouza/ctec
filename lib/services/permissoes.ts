@@ -14,11 +14,7 @@ export interface SessaoUsuario {
 
 // Ações que o sistema controla por autorização.
 export type Acao =
-  | "ler_publico"
-  | "ler_restrito"
-  | "editar_pagina"
-  | "gerenciar_categoria"
-  | "gerenciar_usuario";
+  "ler_publico" | "ler_restrito" | "editar_pagina" | "gerenciar_categoria" | "gerenciar_usuario";
 
 // Matriz de permissões: para cada perfil, o conjunto de ações permitidas.
 // - leitor: lê conteúdo público e restrito.
@@ -26,12 +22,7 @@ export type Acao =
 // - admin:  tudo do editor + gestão de usuários.
 export const MATRIZ_PERMISSOES: Record<Perfil, ReadonlySet<Acao>> = {
   leitor: new Set<Acao>(["ler_publico", "ler_restrito"]),
-  editor: new Set<Acao>([
-    "ler_publico",
-    "ler_restrito",
-    "editar_pagina",
-    "gerenciar_categoria",
-  ]),
+  editor: new Set<Acao>(["ler_publico", "ler_restrito", "editar_pagina", "gerenciar_categoria"]),
   admin: new Set<Acao>([
     "ler_publico",
     "ler_restrito",
@@ -53,10 +44,7 @@ const ACOES_PUBLICAS: ReadonlySet<Acao> = new Set<Acao>(["ler_publico"]);
  * A decisão é determinística: uma ação é permitida se, e somente se, o
  * perfil a possui na matriz (Property 8 do design).
  */
-export function possuiPermissao(
-  sessao: SessaoUsuario | null,
-  acao: Acao
-): boolean {
+export function possuiPermissao(sessao: SessaoUsuario | null, acao: Acao): boolean {
   if (!sessao) {
     return ACOES_PUBLICAS.has(acao);
   }

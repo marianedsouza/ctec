@@ -7,14 +7,16 @@ import ArvoreCategorias from "@/app/components/ArvoreCategorias";
 export const dynamic = "force-dynamic";
 
 export default async function CategoriasPage() {
-  const [areas, temas] = await Promise.all([
-    obterArvore("area"),
-    obterArvore("tema"),
-  ]);
+  const [areas, temas] = await Promise.all([obterArvore("area"), obterArvore("tema")]);
 
   return (
     <main>
-      <h1>Categorias</h1>
+      <div className="page-header">
+        <h1>Categorias</h1>
+        <p className="page-header__lead">
+          Organize a navegação por áreas de atuação e por temas do conhecimento institucional.
+        </p>
+      </div>
 
       <section aria-labelledby="titulo-areas">
         <h2 id="titulo-areas">Áreas de Atuação</h2>

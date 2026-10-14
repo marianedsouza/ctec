@@ -17,20 +17,18 @@ export default function Breadcrumb({ caminho }: BreadcrumbProps) {
   }
 
   return (
-    <nav aria-label="Breadcrumb">
-      <ol style={{ display: "flex", flexWrap: "wrap", gap: "0.25rem", listStyle: "none", padding: 0 }}>
+    <nav className="breadcrumb" aria-label="Breadcrumb">
+      <ol>
         {caminho.map((categoria, indice) => {
           const ultimo = indice === caminho.length - 1;
 
           return (
-            <li key={categoria.id} style={{ display: "flex", gap: "0.25rem" }}>
+            <li key={categoria.id}>
               {ultimo ? (
                 <span aria-current="page">{categoria.nome}</span>
               ) : (
                 <>
-                  <Link href={`/categorias/${categoria.slug}`}>
-                    {categoria.nome}
-                  </Link>
+                  <Link href={`/categorias/${categoria.slug}`}>{categoria.nome}</Link>
                   <span aria-hidden="true">/</span>
                 </>
               )}

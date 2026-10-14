@@ -11,11 +11,7 @@ import FormularioPagina from "@/app/components/FormularioPagina";
 
 export const dynamic = "force-dynamic";
 
-export default async function EditarPaginaPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function EditarPaginaPage({ params }: { params: Promise<{ slug: string }> }) {
   await exigirPermissao("editar_pagina");
   const { slug } = await params;
 
@@ -34,9 +30,7 @@ export default async function EditarPaginaPage({
     <main>
       <h1>Editar página</h1>
       <p>
-        <Link href={`/editor/paginas/${pagina.slug}/versoes`}>
-          Ver histórico de versões
-        </Link>
+        <Link href={`/editor/paginas/${pagina.slug}/versoes`}>Ver histórico de versões</Link>
       </p>
       <FormularioPagina
         categorias={categorias}

@@ -26,10 +26,7 @@ const formatador = new Intl.DateTimeFormat("pt-BR", {
   timeStyle: "medium",
 });
 
-export default function HistoricoVersoes({
-  paginaId,
-  versoes,
-}: HistoricoVersoesProps) {
+export default function HistoricoVersoes({ paginaId, versoes }: HistoricoVersoesProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [erro, setErro] = useState<string | null>(null);
@@ -67,22 +64,15 @@ export default function HistoricoVersoes({
         {versoes.map((versao, indice) => (
           <li key={versao.id} style={{ marginBottom: "0.75rem" }}>
             <div>
-              <strong>Versão {indice + 1}</strong>{" "}
-              <span>— {versao.titulo}</span>
+              <strong>Versão {indice + 1}</strong> <span>— {versao.titulo}</span>
               {versao.atual && (
-                <span style={{ marginLeft: "0.5rem", color: "#0a7d28" }}>
-                  (conteúdo atual)
-                </span>
+                <span style={{ marginLeft: "0.5rem", color: "#0a7d28" }}>(conteúdo atual)</span>
               )}
             </div>
             <div style={{ color: "#555", fontSize: "0.9rem" }}>
               {formatador.format(new Date(versao.criadaEm))}
             </div>
-            <button
-              type="button"
-              onClick={() => aoRestaurar(versao.id)}
-              disabled={isPending}
-            >
+            <button type="button" onClick={() => aoRestaurar(versao.id)} disabled={isPending}>
               {isPending && restaurandoId === versao.id
                 ? "Restaurando..."
                 : "Restaurar esta versão"}

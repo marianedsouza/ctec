@@ -70,10 +70,7 @@ async function gerarSlugUnico(nome: string, ignorarId?: string): Promise<string>
  * seus descendentes. Usado para prevenir ciclos no reparentamento: um novo
  * pai não pode ser a própria categoria nem estar em sua subárvore.
  */
-async function ehDescendenteOuProprio(
-  id: string,
-  possivelAncestralId: string
-): Promise<boolean> {
+async function ehDescendenteOuProprio(id: string, possivelAncestralId: string): Promise<boolean> {
   if (id === possivelAncestralId) {
     return true;
   }
@@ -132,10 +129,7 @@ export async function criar(dados: Omit<Categoria, "id">): Promise<Categoria> {
   });
 }
 
-export async function atualizar(
-  id: string,
-  dados: Partial<Categoria>
-): Promise<Categoria> {
+export async function atualizar(id: string, dados: Partial<Categoria>): Promise<Categoria> {
   const atual = await prisma.categoria.findUnique({ where: { id } });
   if (!atual) {
     throw new Error("Categoria não encontrada.");
@@ -171,9 +165,7 @@ export async function atualizar(
       data.categoriaPai = { disconnect: true };
     } else {
       if (novoPaiId === id) {
-        throw new Error(
-          "Reparentamento inválido: uma categoria não pode ser pai de si mesma."
-        );
+        throw new Error("Reparentamento inválido: uma categoria não pode ser pai de si mesma.");
       }
 
       const pai = await prisma.categoria.findUnique({
@@ -185,9 +177,7 @@ export async function atualizar(
       }
 
       if (await ehDescendenteOuProprio(id, novoPaiId)) {
-        throw new Error(
-          "Reparentamento inválido: geraria um ciclo na árvore de categorias."
-        );
+        throw new Error("Reparentamento inválido: geraria um ciclo na árvore de categorias.");
       }
 
       data.categoriaPai = { connect: { id: novoPaiId } };
@@ -225,8 +215,7 @@ export async function obterArvore(tipo?: TipoCategoria): Promise<NoArvore[]> {
   const raizes: NoArvore[] = [];
 
   for (const no of porId.values()) {
-    const pai =
-      no.categoriaPaiId !== null ? porId.get(no.categoriaPaiId) : undefined;
+    const pai = no.categoriaPaiId !== null ? porId.get(no.categoriaPaiId) : undefined;
 
     // Um nó é raiz quando não tem pai ou o pai está fora do conjunto filtrado.
     if (pai) {

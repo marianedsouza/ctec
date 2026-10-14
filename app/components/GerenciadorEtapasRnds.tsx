@@ -33,9 +33,7 @@ const OPCOES_STATUS: { valor: StatusEtapa; rotulo: string }[] = [
   { valor: "concluida", rotulo: "Concluída" },
 ];
 
-export default function GerenciadorEtapasRnds({
-  etapas,
-}: GerenciadorEtapasRndsProps) {
+export default function GerenciadorEtapasRnds({ etapas }: GerenciadorEtapasRndsProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [erro, setErro] = useState<string | null>(null);
@@ -202,12 +200,7 @@ interface LinhaEtapaProps {
 }
 
 // Linha editável de uma etapa: permite alterar nome, ordem, status e descrição.
-function LinhaEtapa({
-  etapa,
-  isPending,
-  onAtualizar,
-  onRemover,
-}: LinhaEtapaProps) {
+function LinhaEtapa({ etapa, isPending, onAtualizar, onRemover }: LinhaEtapaProps) {
   const [nome, setNome] = useState(etapa.nome);
   const [ordem, setOrdem] = useState<number>(etapa.ordem);
   const [status, setStatus] = useState<StatusEtapa>(etapa.status);
@@ -231,7 +224,6 @@ function LinhaEtapa({
           style={{ width: "100%" }}
         />
       </div>
-
       <div style={{ marginBottom: "0.5rem" }}>
         <label style={{ display: "block" }}>Ordem</label>
         <input
@@ -241,13 +233,9 @@ function LinhaEtapa({
           step={1}
         />
       </div>
-
       <div style={{ marginBottom: "0.5rem" }}>
         <label style={{ display: "block" }}>Status</label>
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value as StatusEtapa)}
-        >
+        <select value={status} onChange={(e) => setStatus(e.target.value as StatusEtapa)}>
           {OPCOES_STATUS.map((opcao) => (
             <option key={opcao.valor} value={opcao.valor}>
               {opcao.rotulo}
@@ -255,7 +243,6 @@ function LinhaEtapa({
           ))}
         </select>
       </div>
-
       <div style={{ marginBottom: "0.5rem" }}>
         <label style={{ display: "block" }}>Descrição</label>
         <textarea
@@ -265,7 +252,6 @@ function LinhaEtapa({
           style={{ width: "100%" }}
         />
       </div>
-
       <button
         type="button"
         disabled={isPending}
@@ -273,11 +259,7 @@ function LinhaEtapa({
       >
         Salvar alterações
       </button>{" "}
-      <button
-        type="button"
-        disabled={isPending}
-        onClick={() => onRemover(etapa.id)}
-      >
+      <button type="button" disabled={isPending} onClick={() => onRemover(etapa.id)}>
         Remover
       </button>
     </li>

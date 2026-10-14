@@ -1,14 +1,17 @@
 // Schema do Prisma para o Wiki SES-MS.
 // Modelos de domínio: Usuario, Categoria (hierárquica), Pagina,
-// VersaoPagina e EtapaFederalizacao. Definidos conforme design.md
+// VersaoPagina, EtapaFederalizacao e AnexoRnds. Definidos conforme design.md
 // (seção "Modelos de Dados").
+//
+// Banco: MySQL remoto (a busca full-text usa o índice FULLTEXT nativo do
+// MySQL; ver lib/services/busca.ts).
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -49,6 +52,7 @@ model Usuario {
   // Relações
   paginas       Pagina[]        @relation("PaginaAutor")
   versoes       VersaoPagina[]  @relation("VersaoAutor")
+  anexosRnds    AnexoRnds[]     @relation("AnexoAutor")
 
   @@map("usuarios")
 }
@@ -77,7 +81,7 @@ model Pagina {
   id           String       @id @default(cuid())
   titulo       String
   slug         String       @unique
-  conteudo     String
+  conteudo     String       @db.LongText
   visibilidade Visibilidade @default(restrito)
   categoriaId  String
   autorId      String
@@ -92,6 +96,8 @@ model Pagina {
   @@index([categoriaId])
   @@index([autorId])
   @@index([visibilidade])
+  // Índice usado pela busca full-text (lib/services/busca.ts).
+  @@fulltext([titulo, conteudo])
   @@map("paginas")
 }
 
@@ -99,7 +105,7 @@ model VersaoPagina {
   id       String   @id @default(cuid())
   paginaId String
   titulo   String
-  conteudo String
+  conteudo String   @db.LongText
   autorId  String
   criadaEm DateTime @default(now())
 
@@ -117,8 +123,30 @@ model EtapaFederalizacao {
   nome      String
   ordem     Int
   status    StatusEtapa @default(nao_iniciada)
-  descricao String
+  descricao String      @db.Text
 
   @@index([ordem])
   @@map("etapas_federalizacao")
+}
+
+// Arquivo anexado à seção pública da RNDS (apresentação + documentos).
+// O binário fica em disco (data/anexos/rnds) e é servido pela rota
+// app/api/rnds/anexos/[id]/route.ts; aqui ficam apenas os metadados.
+model AnexoRnds {
+  id           String   @id @default(cuid())
+  titulo       String
+  nomeOriginal String
+  nomeArquivo  String
+  mimeType     String
+  tamanho      Int
+  descricao    String   @default("")
+  ordem        Int      @default(0)
+  criadoPorId  String?
+  criadoEm     DateTime @default(now())
+
+  // Relações
+  criadoPor Usuario? @relation("AnexoAutor", fields: [criadoPorId], references: [id], onDelete: SetNull)
+
+  @@index([ordem])
+  @@map("anexos_rnds")
 }

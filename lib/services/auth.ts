@@ -6,11 +6,7 @@
 // Toda verificação de acesso é aplicada NO SERVIDOR (Requirement 2.4).
 
 import { auth } from "@/auth";
-import {
-  possuiPermissao,
-  type Acao,
-  type SessaoUsuario,
-} from "@/lib/services/permissoes";
+import { possuiPermissao, type Acao, type SessaoUsuario } from "@/lib/services/permissoes";
 
 export type { Acao, SessaoUsuario };
 export { possuiPermissao };

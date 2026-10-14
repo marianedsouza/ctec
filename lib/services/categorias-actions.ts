@@ -7,16 +7,9 @@
 
 import { revalidatePath } from "next/cache";
 import { exigirPermissao } from "@/lib/services/auth";
-import {
-  criar,
-  atualizar,
-  remover,
-  type Categoria,
-} from "@/lib/services/categorias";
+import { criar, atualizar, remover, type Categoria } from "@/lib/services/categorias";
 
-export async function criarCategoria(
-  dados: Omit<Categoria, "id">
-): Promise<Categoria> {
+export async function criarCategoria(dados: Omit<Categoria, "id">): Promise<Categoria> {
   await exigirPermissao("gerenciar_categoria");
   const categoria = await criar(dados);
   revalidatePath("/categorias");
@@ -25,7 +18,7 @@ export async function criarCategoria(
 
 export async function atualizarCategoria(
   id: string,
-  dados: Partial<Categoria>
+  dados: Partial<Categoria>,
 ): Promise<Categoria> {
   await exigirPermissao("gerenciar_categoria");
   const categoria = await atualizar(id, dados);

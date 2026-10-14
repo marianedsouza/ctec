@@ -50,10 +50,7 @@ export interface VersaoPagina {
 export interface ServicoPaginas {
   criar(dados: Omit<Pagina, "id" | "slug" | "atualizadoEm">): Promise<Pagina>;
   atualizar(id: string, dados: Partial<Pagina>): Promise<Pagina>;
-  obterPorSlug(
-    slug: string,
-    sessao: SessaoUsuario | null
-  ): Promise<Pagina | null>;
+  obterPorSlug(slug: string, sessao: SessaoUsuario | null): Promise<Pagina | null>;
   listarVersoes(paginaId: string): Promise<VersaoPagina[]>;
   restaurarVersao(paginaId: string, versaoId: string): Promise<Pagina>;
 }
@@ -64,9 +61,7 @@ export class SlugDuplicadoError extends Error {
   readonly slugSugerido: string;
 
   constructor(slug: string, slugSugerido: string) {
-    super(
-      `Já existe uma página com o slug "${slug}". Sugestão: "${slugSugerido}".`
-    );
+    super(`Já existe uma página com o slug "${slug}". Sugestão: "${slugSugerido}".`);
     this.name = "SlugDuplicadoError";
     this.slugSugerido = slugSugerido;
   }
@@ -77,10 +72,7 @@ export class SlugDuplicadoError extends Error {
  * numérico incremental (-2, -3, ...). `ignorarId` mantém o slug da própria
  * página em atualizações.
  */
-async function proximoSlugLivre(
-  slugBase: string,
-  ignorarId?: string
-): Promise<string> {
+async function proximoSlugLivre(slugBase: string, ignorarId?: string): Promise<string> {
   let candidato = slugBase;
   let contador = 1;
 
@@ -105,10 +97,7 @@ async function proximoSlugLivre(
  * slugificáveis) e verifica unicidade. Se o slug base estiver ocupado por
  * outra página, lança SlugDuplicadoError com uma sugestão livre (Req 4.3).
  */
-async function resolverSlugUnico(
-  titulo: string,
-  ignorarId?: string
-): Promise<string> {
+async function resolverSlugUnico(titulo: string, ignorarId?: string): Promise<string> {
   const base = slugify(titulo);
   const slugBase = base.length > 0 ? base : "pagina";
 
@@ -135,9 +124,7 @@ async function validarCategoriaExiste(categoriaId: string): Promise<void> {
   }
 }
 
-export async function criar(
-  dados: Omit<Pagina, "id" | "slug" | "atualizadoEm">
-): Promise<Pagina> {
+export async function criar(dados: Omit<Pagina, "id" | "slug" | "atualizadoEm">): Promise<Pagina> {
   const titulo = dados.titulo.trim();
   if (titulo.length === 0) {
     throw new Error("O título da página não pode ser vazio.");
@@ -176,10 +163,7 @@ export async function criar(
   return pagina;
 }
 
-export async function atualizar(
-  id: string,
-  dados: Partial<Pagina>
-): Promise<Pagina> {
+export async function atualizar(id: string, dados: Partial<Pagina>): Promise<Pagina> {
   const atual = await prisma.pagina.findUnique({ where: { id } });
   if (!atual) {
     throw new Error("Página não encontrada.");
@@ -235,7 +219,7 @@ export async function atualizar(
 
 export async function obterPorSlug(
   slug: string,
-  sessao: SessaoUsuario | null
+  sessao: SessaoUsuario | null,
 ): Promise<Pagina | null> {
   const pagina = await prisma.pagina.findUnique({ where: { slug } });
   if (!pagina) {
@@ -245,10 +229,7 @@ export async function obterPorSlug(
   // Regra de visibilidade aplicada no servidor (Requirements 2.1, 2.3):
   // páginas restritas exigem permissão de leitura restrita. Usuário anônimo
   // (sessão nula) não possui essa permissão e recebe null.
-  if (
-    pagina.visibilidade === "restrito" &&
-    !possuiPermissao(sessao, "ler_restrito")
-  ) {
+  if (pagina.visibilidade === "restrito" && !possuiPermissao(sessao, "ler_restrito")) {
     return null;
   }
 
@@ -286,10 +267,7 @@ export async function listarVersoes(paginaId: string): Promise<VersaoPagina[]> {
  *
  * A versão informada deve pertencer à página informada.
  */
-export async function restaurarVersao(
-  paginaId: string,
-  versaoId: string
-): Promise<Pagina> {
+export async function restaurarVersao(paginaId: string, versaoId: string): Promise<Pagina> {
   const pagina = await prisma.$transaction(async (tx) => {
     const versao = await tx.versaoPagina.findUnique({
       where: { id: versaoId },
@@ -325,6 +303,28 @@ export async function restaurarVersao(
   });
 
   return pagina;
+}
+
+/**
+ * Lista as páginas mais recentes, da mais atualizada para a mais antiga,
+ * aplicando a mesma regra de visibilidade de `obterPorSlug` (Requirements 2.1,
+ * 2.3): sem permissão de leitura restrita, somente páginas públicas.
+ *
+ * Usada nas vitrines de conteúdo (ex.: "acervo" da seção RNDS), onde exibimos
+ * somente título/slug — o corpo não é retornado.
+ */
+export async function listarRecentes(
+  sessao: SessaoUsuario | null,
+  limite = 8,
+): Promise<Pick<Pagina, "id" | "titulo" | "slug" | "atualizadoEm">[]> {
+  const paginas = await prisma.pagina.findMany({
+    where: possuiPermissao(sessao, "ler_restrito") ? {} : { visibilidade: "publico" },
+    orderBy: [{ atualizadoEm: "desc" }, { id: "asc" }],
+    take: limite,
+    select: { id: true, titulo: true, slug: true, atualizadoEm: true },
+  });
+
+  return paginas;
 }
 
 // Objeto que materializa a interface ServicoPaginas do design.

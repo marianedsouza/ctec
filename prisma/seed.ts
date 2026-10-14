@@ -1,7 +1,32 @@
 import { PrismaClient, TipoCategoria, StatusEtapa } from "@prisma/client";
+import bcrypt from "bcryptjs";
 import { slugify } from "../lib/slug";
 
 const prisma = new PrismaClient();
+
+/**
+ * Cria (ou atualiza) o usuário administrador inicial usando as variáveis de
+ * ambiente ADMIN_EMAIL/ADMIN_SENHA. Sem esse usuário não é possível entrar na
+ * área restrita (login por credenciais contra a tabela `usuarios`).
+ */
+async function upsertAdmin() {
+  const email = (process.env.ADMIN_EMAIL ?? "admin@saude.ms.gov.br").trim().toLowerCase();
+  const senha = process.env.ADMIN_SENHA ?? "Ses@2026";
+  const senhaHash = await bcrypt.hash(senha, 10);
+
+  await prisma.usuario.upsert({
+    where: { email },
+    update: { nome: "Administrador SES-MS", perfil: "admin", senhaHash },
+    create: {
+      nome: "Administrador SES-MS",
+      email,
+      senhaHash,
+      perfil: "admin",
+    },
+  });
+
+  console.log(`Seed: usuário administrador garantido -> ${email}`);
+}
 
 /**
  * Cria (ou atualiza) uma categoria de forma idempotente usando o slug único.
@@ -32,6 +57,9 @@ async function upsertCategoria(dados: {
 }
 
 async function main() {
+  console.log("Seed: garantindo usuário administrador...");
+  await upsertAdmin();
+
   console.log("Seed: criando árvore de categorias...");
 
   // --- Dimensão "área": áreas de atuação da SES-MS ---

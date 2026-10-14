@@ -19,8 +19,7 @@ import {
 
 // Resultado padronizado das actions para consumo no formulário (client).
 export type ResultadoAcaoPagina =
-  | { ok: true; slug: string }
-  | { ok: false; erro: string; slugSugerido?: string };
+  { ok: true; slug: string } | { ok: false; erro: string; slugSugerido?: string };
 
 interface DadosFormularioPagina {
   titulo: string;
@@ -30,7 +29,7 @@ interface DadosFormularioPagina {
 }
 
 export async function criarPaginaAction(
-  dados: DadosFormularioPagina
+  dados: DadosFormularioPagina,
 ): Promise<ResultadoAcaoPagina> {
   const sessao = await exigirPermissao("editar_pagina");
 
@@ -59,7 +58,7 @@ export async function criarPaginaAction(
 
 export async function atualizarPaginaAction(
   id: string,
-  dados: DadosFormularioPagina
+  dados: DadosFormularioPagina,
 ): Promise<ResultadoAcaoPagina> {
   const sessao = await exigirPermissao("editar_pagina");
 
@@ -81,8 +80,7 @@ export async function atualizarPaginaAction(
     }
     return {
       ok: false,
-      erro:
-        erro instanceof Error ? erro.message : "Erro ao atualizar a página.",
+      erro: erro instanceof Error ? erro.message : "Erro ao atualizar a página.",
     };
   }
 }
@@ -91,7 +89,7 @@ export async function atualizarPaginaAction(
 // Exige permissão de edição NO SERVIDOR (Requirement 2.4 / 5.4).
 export async function restaurarVersaoAction(
   paginaId: string,
-  versaoId: string
+  versaoId: string,
 ): Promise<ResultadoAcaoPagina> {
   await exigirPermissao("editar_pagina");
 
@@ -105,8 +103,7 @@ export async function restaurarVersaoAction(
   } catch (erro) {
     return {
       ok: false,
-      erro:
-        erro instanceof Error ? erro.message : "Erro ao restaurar a versão.",
+      erro: erro instanceof Error ? erro.message : "Erro ao restaurar a versão.",
     };
   }
 }

@@ -12,22 +12,12 @@ interface ArvoreCategoriasProps {
   slugAtivo?: string;
 }
 
-function ItemArvore({
-  no,
-  slugAtivo,
-}: {
-  no: NoArvore;
-  slugAtivo?: string;
-}) {
+function ItemArvore({ no, slugAtivo }: { no: NoArvore; slugAtivo?: string }) {
   const ativo = no.slug === slugAtivo;
 
   return (
     <li>
-      <Link
-        href={`/categorias/${no.slug}`}
-        aria-current={ativo ? "page" : undefined}
-        style={{ fontWeight: ativo ? 700 : 400 }}
-      >
+      <Link href={`/categorias/${no.slug}`} aria-current={ativo ? "page" : undefined}>
         {no.nome}
       </Link>
       {no.filhos.length > 0 && (
@@ -41,16 +31,13 @@ function ItemArvore({
   );
 }
 
-export default function ArvoreCategorias({
-  nos,
-  slugAtivo,
-}: ArvoreCategoriasProps) {
+export default function ArvoreCategorias({ nos, slugAtivo }: ArvoreCategoriasProps) {
   if (nos.length === 0) {
-    return <p>Nenhuma categoria disponível.</p>;
+    return <p className="muted">Nenhuma categoria disponível.</p>;
   }
 
   return (
-    <nav aria-label="Navegação de categorias">
+    <nav className="tree" aria-label="Navegação de categorias">
       <ul>
         {nos.map((no) => (
           <ItemArvore key={no.id} no={no} slugAtivo={slugAtivo} />

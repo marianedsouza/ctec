@@ -30,12 +30,10 @@ export interface EtapaFederalizacao {
 
 export interface ServicoRnds {
   listarEtapas(): Promise<EtapaFederalizacao[]>;
-  criarEtapa(
-    dados: Omit<EtapaFederalizacao, "id">
-  ): Promise<EtapaFederalizacao>;
+  criarEtapa(dados: Omit<EtapaFederalizacao, "id">): Promise<EtapaFederalizacao>;
   atualizarEtapa(
     id: string,
-    dados: Partial<Omit<EtapaFederalizacao, "id">>
+    dados: Partial<Omit<EtapaFederalizacao, "id">>,
   ): Promise<EtapaFederalizacao>;
   removerEtapa(id: string): Promise<void>;
 }
@@ -71,7 +69,7 @@ export async function listarEtapas(): Promise<EtapaFederalizacao[]> {
  * (Requirement 8.2). Valida nome não vazio, ordem inteira e status permitido.
  */
 export async function criarEtapa(
-  dados: Omit<EtapaFederalizacao, "id">
+  dados: Omit<EtapaFederalizacao, "id">,
 ): Promise<EtapaFederalizacao> {
   const nome = dados.nome.trim();
   if (nome.length === 0) {
@@ -102,7 +100,7 @@ export async function criarEtapa(
  */
 export async function atualizarEtapa(
   id: string,
-  dados: Partial<Omit<EtapaFederalizacao, "id">>
+  dados: Partial<Omit<EtapaFederalizacao, "id">>,
 ): Promise<EtapaFederalizacao> {
   const atual = await prisma.etapaFederalizacao.findUnique({ where: { id } });
   if (!atual) {

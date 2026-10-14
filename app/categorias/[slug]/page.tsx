@@ -4,11 +4,7 @@
 
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import {
-  obterArvore,
-  obterCaminho,
-  type NoArvore,
-} from "@/lib/services/categorias";
+import { obterArvore, obterCaminho, type NoArvore } from "@/lib/services/categorias";
 import ArvoreCategorias from "@/app/components/ArvoreCategorias";
 import Breadcrumb from "@/app/components/Breadcrumb";
 
