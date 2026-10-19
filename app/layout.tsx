@@ -5,10 +5,11 @@ import SiteHeader from "@/app/components/SiteHeader";
 
 export const metadata: Metadata = {
   title: {
-    default: "Wiki SES-MS",
-    template: "%s · Wiki SES-MS",
+    default: "Federalização da RNDS · SES-MS",
+    template: "%s · SES-MS",
   },
-  description: "Base de conhecimento da Secretaria de Estado de Saúde de Mato Grosso do Sul",
+  description:
+    "Federalização da Rede Nacional de Dados em Saúde em Mato Grosso do Sul — Projeto e Plano de Trabalho da SES-MS",
 };
 
 export default function RootLayout({
@@ -40,12 +41,13 @@ export default function RootLayout({
               </div>
 
               <div className="site-footer__links">
-                <Link href="/">Início</Link> · <Link href="/categorias">Categorias</Link> ·{" "}
-                <Link href="/rnds">RNDS</Link> · <Link href="/busca">Busca</Link>
+                <Link href="/">Início</Link> · <Link href="/#o-que-e-rnds">RNDS</Link> ·{" "}
+                <Link href="/#onde-estamos">Etapas</Link> ·{" "}
+                <Link href="/#documentos">Documentos</Link>
               </div>
 
               <div className="site-footer__meta">
-                © {anoAtual} SES-MS — base de conhecimento institucional.
+                © {anoAtual} SES-MS — Federalização da RNDS em Mato Grosso do Sul.
                 <br />
                 Identidade visual provisória, pendente dos ativos oficiais da marca.
               </div>

@@ -1,68 +1,126 @@
-// Página inicial do Wiki SES-MS (Task 10.1 / Requirement 9.1).
-// Mantém a mesma linguagem visual da seção RNDS: hero, cartões de destaque em
-// variantes de cor, painel do acervo e faixa de atalhos.
+// Landing page pública da Federalização da RNDS em Mato Grosso do Sul.
+// Página 100% estática (sem banco de dados, sem sessão): conteúdo editorial
+// fixo baseado no Plano de Trabalho da Federalização da RNDS — V.2
+// (Estado: Mato Grosso do Sul, 2026). As etapas exibidas podem ser ajustadas
+// diretamente neste arquivo ou, futuramente, tornadas editáveis novamente.
 
 import Link from "next/link";
-import { obterSessao } from "@/lib/services/auth";
-import { listarRecentes } from "@/lib/services/paginas";
-import Carrossel from "@/app/components/Carrossel";
 import {
-  IconeBusca,
-  IconeEscudo,
+  IconeDocumento,
   IconeGrafico,
   IconePasta,
+  IconePlano,
   IconeRede,
 } from "@/app/components/Icones";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
-function dataCurta(data: Date): string {
-  return data.toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
-}
+const ETAPAS = [
+  {
+    ordem: 1,
+    nome: "Acesso e extração de dados (Bucket S3)",
+    status: "em_andamento" as const,
+    rotuloStatus: "Em andamento",
+    descricao:
+      "Fase de preparação e homologação (2026-2027), seguida da integração e carga histórica (até 2028), com acesso ao bucket S3 de extração de dados da RNDS.",
+  },
+  {
+    ordem: 2,
+    nome: "Tratamento dos dados da RNDS",
+    status: "nao_iniciada" as const,
+    rotuloStatus: "Não iniciada",
+    descricao:
+      "Padronização, qualidade e segurança dos dados extraídos, preparando-os para a geração de indicadores.",
+  },
+  {
+    ordem: 3,
+    nome: "Disseminação e uso dos dados da RNDS",
+    status: "nao_iniciada" as const,
+    rotuloStatus: "Não iniciada",
+    descricao:
+      "Ampliação de parcerias e uso estratégico dos dados para gestão e vigilância em saúde em Mato Grosso do Sul.",
+  },
+];
 
-export default async function HomePage() {
-  const sessao = await obterSessao();
-  const recentes = await listarRecentes(sessao, 6);
+const DESTAQUES = [
+  {
+    id: "projeto",
+    variante: "azul",
+    icone: <IconeDocumento />,
+    titulo: "Projeto",
+    texto:
+      "Entenda o escopo da federalização da RNDS em Mato Grosso do Sul e os conceitos que sustentam o projeto estadual.",
+    href: "#projeto-info",
+  },
+  {
+    id: "plano-de-trabalho",
+    variante: "verde",
+    icone: <IconePlano />,
+    titulo: "Plano de Trabalho",
+    texto:
+      "Acompanhe as ações planejadas e executadas, com o andamento registrado etapa a etapa.",
+    href: "#onde-estamos",
+  },
+  {
+    id: "rnds",
+    variante: "roxo",
+    icone: <IconeGrafico />,
+    titulo: "RNDS",
+    texto:
+      "As vantagens de consumir dados nacionais: interoperabilidade, padrões e visão única da jornada no SUS.",
+    href: "#o-que-e-rnds",
+  },
+  {
+    id: "acompanhe-o-projeto",
+    variante: "laranja",
+    icone: <IconeRede />,
+    titulo: "Acompanhe o Projeto",
+    texto: "De onde partimos e para onde vamos: a jornada estadual em Mato Grosso do Sul.",
+    href: "#onde-estamos",
+  },
+];
 
+export default function HomePage() {
   return (
     <div className="rnds">
       <section className="rnds-hero">
         <div className="container rnds-hero__content">
-          <p className="rnds-hero__eyebrow">BASE DE CONHECIMENTO</p>
-          <h1>Wiki SES-MS</h1>
+          <p className="rnds-hero__eyebrow">SAÚDE DIGITAL · RNDS</p>
+          <h1>Federalização da RNDS</h1>
           <p className="rnds-hero__state">Mato Grosso do Sul</p>
           <div className="rnds-hero__line" aria-hidden="true" />
           <p className="rnds-hero__subtitle">
-            Conhecimento institucional da Secretaria de Estado de Saúde, organizado por áreas de
-            atuação e temas — com acesso público para a população e área restrita para a equipe.
+            Uma rede estadual conectada à Rede Nacional de Dados em Saúde, com interoperabilidade,
+            segurança e visão única do cidadão em todo o território sul-mato-grossense.
           </p>
 
-          <ul className="rnds-hero__metrics" aria-label="Atalhos principais">
+          <ul className="rnds-hero__metrics" aria-label="Indicadores do projeto">
             <li>
+              <b>{ETAPAS.length}</b>
               <span>
-                <strong>Federalização da RNDS</strong>o nosso “onde estamos”
+                <strong>Etapas</strong>
+                do plano
               </span>
             </li>
             <li>
+              <b>2026</b>
               <span>
-                <strong>Categorias</strong>
-                áreas e temas
+                <strong>Início</strong>
+                da jornada
               </span>
             </li>
             <li>
+              <b>2028</b>
               <span>
-                <strong>Busca</strong>
-                pesquisa no acervo
+                <strong>Carga histórica</strong>
+                prevista
               </span>
             </li>
             <li className="rnds-hero__metric--last">
+              <b>MS</b>
               <span>
-                <strong>Área restrita</strong>
-                edição pela equipe
+                <strong>Instância</strong>
+                estadual
               </span>
             </li>
           </ul>
@@ -79,58 +137,71 @@ export default async function HomePage() {
       </section>
 
       <main className="container rnds-main">
-        <section className="feature-grid" aria-label="Áreas principais">
-          <article className="feature-card feature-card--azul" id="rnds">
-            <span className="feature-card__icon">
-              <IconeRede />
-            </span>
-            <h2>RNDS</h2>
+        <section className="feature-grid" aria-label="Destaques da federalização">
+          {DESTAQUES.map((destaque) => (
+            <article
+              key={destaque.id}
+              className={`feature-card feature-card--${destaque.variante}`}
+              id={destaque.id}
+            >
+              <span className="feature-card__icon">{destaque.icone}</span>
+              <h2>{destaque.titulo}</h2>
+              <p>{destaque.texto}</p>
+              <a href={destaque.href}>
+                Acessar <b aria-hidden="true">→</b>
+              </a>
+            </article>
+          ))}
+        </section>
+
+        <section className="information" id="projeto-info">
+          <article id="o-que-e-rnds">
+            <small>O QUE É A RNDS</small>
+            <h2>Interoperabilidade nacional</h2>
             <p>
-              Conteúdo explicativo e as etapas da federalização estadual da Rede Nacional de Dados
-              em Saúde.
+              A RNDS (Rede Nacional de Dados em Saúde) é a plataforma nacional de interoperabilidade
+              mantida pelo DATASUS. Ela conecta estabelecimentos, sistemas e entes federativos para
+              permitir a troca segura de informações clínicas e administrativas ao longo da jornada
+              do cidadão no SUS, adotando o padrão HL7 FHIR e terminologias clínicas reconhecidas
+              (LOINC, SNOMED CT e CID).
             </p>
-            <Link href="/rnds">
-              Acessar <b aria-hidden="true">→</b>
-            </Link>
           </article>
 
-          <article className="feature-card feature-card--verde" id="categorias">
-            <span className="feature-card__icon">
-              <IconeEscudo />
-            </span>
-            <h2>Categorias</h2>
-            <p>Navegue pela árvore de áreas de atuação e temas do conhecimento da SES-MS.</p>
-            <Link href="/categorias">
-              Acessar <b aria-hidden="true">→</b>
-            </Link>
-          </article>
-
-          <article className="feature-card feature-card--roxo" id="busca">
-            <span className="feature-card__icon">
-              <IconeBusca />
-            </span>
-            <h2>Busca</h2>
+          <article id="o-que-e-federalizacao">
+            <small>FEDERALIZAÇÃO</small>
+            <h2>Uma instância estadual</h2>
             <p>
-              Pesquise páginas por termos em todo o portal, com trechos destacados e ranqueamento
-              por relevância.
+              A federalização é o modelo em que o estado opera a sua própria instância federada da
+              RNDS, integrada à base nacional. Na prática, a SES-MS ganha autonomia para integrar
+              sistemas locais (municipais e estaduais) mantendo sincronização contínua com a base
+              federal.
             </p>
-            <Link href="/busca">
-              Acessar <b aria-hidden="true">→</b>
-            </Link>
           </article>
+        </section>
 
-          <article className="feature-card feature-card--laranja" id="area-restrita">
-            <span className="feature-card__icon">
-              <IconeGrafico />
-            </span>
-            <h2>Área restrita</h2>
-            <p>
-              Acesso da equipe SES-MS para editar conteúdo, categorias e as etapas da federalização.
-            </p>
-            <Link href="/login">
-              Acessar <b aria-hidden="true">→</b>
-            </Link>
-          </article>
+        <section className="timeline-section" id="onde-estamos">
+          <p>ONDE ESTAMOS</p>
+          <h2>Etapas da federalização em MS</h2>
+
+          <p className="notice">
+            As etapas abaixo seguem o Plano de Trabalho da Federalização da RNDS — V.2 (MS, 2026) e
+            serão atualizadas conforme o andamento oficial do projeto.
+          </p>
+
+          <ol className="timeline">
+            {ETAPAS.map((etapa) => (
+              <li className="timeline-item" key={etapa.ordem}>
+                <b>Etapa {etapa.ordem}</b>
+                <div>
+                  <strong className="timeline-item__title">{etapa.nome}</strong>
+                  <span className={`status-badge status-badge--${etapa.status}`}>
+                    {etapa.rotuloStatus}
+                  </span>
+                  <p>{etapa.descricao}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </section>
 
         <section className="documents" id="documentos">
@@ -139,74 +210,46 @@ export default async function HomePage() {
               <IconePasta />
             </span>
             <div>
-              <p>ACERVO ESSENCIAL</p>
-              <h2>Páginas recentes</h2>
-              <span>Conteúdos publicados e atualizados pela equipe SES-MS.</span>
+              <p>PLANO DE TRABALHO</p>
+              <h2>Documento oficial</h2>
+              <span>
+                Plano de Trabalho da Federalização da RNDS — V.2 (Estado: Mato Grosso do Sul, 2026).
+              </span>
             </div>
           </div>
 
-          {recentes.length === 0 ? (
-            <p className="muted">
-              Nenhuma página publicada até o momento. <Link href="/busca">Buscar no acervo</Link>.
-            </p>
-          ) : (
-            <Carrossel rotulo="Páginas recentes do acervo">
-              {recentes.map((pagina) => (
-                <article className="document-card" key={pagina.id} role="listitem">
-                  <strong className="document-card__icon" aria-hidden="true">
-                    ▤
-                  </strong>
-                  <div className="document-card__content">
-                    <small>PÁGINA</small>
-                    <b>{pagina.titulo}</b>
-                    <span>Atualizada em {dataCurta(pagina.atualizadoEm)}</span>
-                    <Link
-                      className="document-card__link"
-                      href={`/paginas/${pagina.slug}`}
-                      aria-label={`Abrir ${pagina.titulo}`}
-                    >
-                      →
-                    </Link>
-                  </div>
-                </article>
-              ))}
-            </Carrossel>
-          )}
-        </section>
-
-        <section className="information">
-          <article>
-            <small>SOBRE O WIKI</small>
-            <h2>Conhecimento institucional</h2>
-            <p>
-              O Wiki SES-MS reúne o conteúdo técnico e administrativo da Secretaria de Estado de
-              Saúde de Mato Grosso do Sul em um único lugar, com páginas versionadas, categorias
-              hierárquicas e busca de texto completo. Páginas marcadas como públicas são visíveis a
-              qualquer visitante; as restritas exigem autenticação da equipe.
-            </p>
-          </article>
-
-          <article>
-            <small>FALE CONOSCO</small>
-            <h2>Governança e acesso</h2>
-            <p>
-              A edição de conteúdo é feita pela equipe autorizada da SES-MS, com permissões
-              distintas para leitura restrita, edição e administração. O histórico de versões
-              permite revisar e restaurar publicações anteriores a qualquer momento.
-            </p>
-          </article>
+          <div className="anexos-grid">
+            <article className="anexo-card">
+              <h3 className="anexo-card__titulo">
+                Plano de Trabalho da Federalização da RNDS — MS (V.2)
+              </h3>
+              <p className="anexo-card__meta">
+                CGIIS · DATASUS · SEIDIGI · MS — edição de 24/07/2026
+              </p>
+              <p className="anexo-card__desc">
+                Documento com o cenário-alvo, a metodologia, os quatro domínios do projeto e as
+                etapas estaduais da federalização da RNDS em Mato Grosso do Sul.
+              </p>
+              <a className="anexo-card__link" href="/rnds_apresentacao_ms.txt" download>
+                Baixar resumo do plano
+              </a>
+            </article>
+          </div>
         </section>
       </main>
 
       <section className="closing">
         <div className="container closing__content">
           <div>
-            <h2>Precisa manter o conteúdo atualizado?</h2>
-            <p>A equipe SES-MS mantém o acervo na área restrita do Wiki SES-MS.</p>
+            <h2>Acompanhe a federalização da RNDS em MS</h2>
+            <p>
+              Conteúdo institucional mantido pela Secretaria de Estado de Saúde de Mato Grosso do
+              Sul.
+            </p>
           </div>
           <p className="closing__cta">
-            <Link className="btn-primary" href="/login">
-              Entrar na área restrita
+            <Link className="btn-primary" href="#onde-estamos">
+              Ver as etapas
             </Link>
           </p>
         </div>
