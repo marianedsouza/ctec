@@ -11,9 +11,10 @@
 //   5. Linha do tempo "onde estamos" com as etapas da federalização.
 //   6. Faixa de encerramento com o caminho para a área restrita.
 //
-// IMPORTANTE (domínio): as etapas reais da federalização em MS ainda NÃO estão
-// confirmadas. As etapas exibidas são ILUSTRATIVAS (dados de exemplo editáveis)
-// e não devem ser interpretadas como o cronograma oficial da SES-MS/DATASUS.
+// IMPORTANTE (domínio): as etapas exibidas seguem o Plano de Trabalho da
+// Federalização da RNDS — V.2 (Estado: Mato Grosso do Sul, 2026). Elas são
+// dados editáveis (via /editor/rnds) e devem ser mantidas alinhadas ao
+// documento oficial da SES-MS/DATASUS.
 
 import Link from "next/link";
 import type { StatusEtapa } from "@prisma/client";
@@ -248,9 +249,9 @@ export default async function SecaoRndsPage() {
           <h2>Etapas da federalização em MS</h2>
 
           <p className="notice">
-            Aviso: as etapas abaixo são ilustrativas e servem de modelo editável. Elas ainda não
-            representam o cronograma oficial da federalização da RNDS em Mato Grosso do Sul e devem
-            ser atualizadas a partir do documento oficial de adesão da SES-MS/DATASUS.
+            As etapas abaixo seguem o Plano de Trabalho da Federalização da RNDS — V.2 (MS, 2026)
+            e podem ser atualizadas a qualquer momento pela equipe responsável, sem alteração de
+            código.
           </p>
 
           {podeEditar && (

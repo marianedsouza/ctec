@@ -118,37 +118,32 @@ async function main() {
     });
   }
 
-  console.log("Seed: criando etapas de federalização de exemplo...");
+  console.log("Seed: criando etapas da federalização (Plano de Trabalho V.2)...");
 
-  // --- Etapas de federalização (dados de exemplo, editáveis depois) ---
+  // --- Etapas estaduais conforme o Plano de Trabalho da Federalização da RNDS
+  // --- (V.2 — Estado: Mato Grosso do Sul, 2026). Continuam editáveis via
+  // --- /editor/rnds sem necessidade de alterar código.
   const etapas = [
     {
-      nome: "Adesão e formalização com o DATASUS",
-      ordem: 0,
-      status: StatusEtapa.concluida,
-      descricao:
-        "Assinatura do termo de adesão da SES-MS ao modelo federado da RNDS junto ao DATASUS.",
-    },
-    {
-      nome: "Provisionamento da instância estadual",
+      nome: "Acesso e extração de dados (Bucket S3)",
       ordem: 1,
       status: StatusEtapa.em_andamento,
       descricao:
-        "Configuração da infraestrutura e da instância federada da RNDS para o estado de MS.",
+        "Fase de preparação e homologação (2026-2027), seguida da integração e carga histórica (até 2028), com acesso ao bucket S3 de extração de dados da RNDS.",
     },
     {
-      nome: "Integração dos sistemas locais",
+      nome: "Tratamento dos dados da RNDS",
       ordem: 2,
       status: StatusEtapa.nao_iniciada,
       descricao:
-        "Conexão dos sistemas municipais e estaduais à instância federada, com envio de dados no padrão HL7 FHIR.",
+        "Padronização, qualidade e segurança dos dados extraídos, preparando-os para a geração de indicadores.",
     },
     {
-      nome: "Homologação e sincronização com a base nacional",
+      nome: "Disseminação e uso dos dados da RNDS",
       ordem: 3,
       status: StatusEtapa.nao_iniciada,
       descricao:
-        "Validação da interoperabilidade e sincronização contínua com a base nacional da RNDS.",
+        "Ampliação de parcerias e uso estratégico dos dados para gestão e vigilância em saúde em Mato Grosso do Sul.",
     },
   ];
 

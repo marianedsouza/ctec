@@ -25,8 +25,8 @@ export default async function EditorRndsPage() {
         </p>
       </div>
       <p className="notice">
-        Mantenha os valores alinhados ao documento oficial de adesão da SES-MS/DATASUS. Enquanto não
-        houver cronograma confirmado, trate as etapas de exemplo como ilustrativas.
+        Mantenha os valores alinhados ao Plano de Trabalho da Federalização da RNDS — V.2
+        (Estado: Mato Grosso do Sul, 2026) e às atualizações oficiais da SES-MS/DATASUS.
       </p>
       <p>
         <Link href="/rnds">Ver seção pública da RNDS</Link>

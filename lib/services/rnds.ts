@@ -11,9 +11,10 @@
 //   - `status` deve ser um dos valores do enum StatusEtapa.
 //   - a gestão é orientada a dados: atualizar etapas NÃO exige mudança de código.
 //
-// IMPORTANTE (domínio): as etapas reais da federalização da RNDS em MS ainda
-// não estão confirmadas. Por isso são modeladas como dados editáveis e os
-// valores de seed devem ser tratados como ILUSTRATIVOS, não como fato oficial.
+// IMPORTANTE (domínio): as etapas da federalização da RNDS em MS seguem o
+// Plano de Trabalho — V.2 (Estado: Mato Grosso do Sul, 2026). São modeladas
+// como dados editáveis (via /editor/rnds) para permitir atualização sem
+// alteração de código sempre que o documento oficial mudar.
 
 import type { Prisma, StatusEtapa } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
