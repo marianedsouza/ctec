@@ -163,10 +163,11 @@ main {
   width: min(calc(100% - 48px), var(--max-width));
   margin: 0 auto;
   padding: 0.75rem 0;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 1.25rem;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
 }
 
 .site-brand {
@@ -215,6 +216,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-end;
   gap: 0.1rem;
 }
 
@@ -250,53 +252,6 @@ main {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-/* Busca no cabeÃ§alho */
-.site-search {
-  display: flex;
-  align-items: stretch;
-  background: var(--surface);
-  border-radius: 999px;
-  padding: 0.2rem;
-  max-width: 21rem;
-  width: 100%;
-}
-
-.site-search__input {
-  flex: 1;
-  min-width: 0;
-  border: none;
-  background: transparent;
-  padding: 0.4rem 0.85rem;
-  font: inherit;
-  font-size: 0.88rem;
-  color: var(--ink);
-  border-radius: 999px;
-}
-
-.site-search__input:focus {
-  outline: none;
-}
-
-.site-search__input::placeholder {
-  color: var(--muted);
-}
-
-.site-search__button {
-  border: none;
-  cursor: pointer;
-  font: inherit;
-  font-size: 0.84rem;
-  font-weight: 700;
-  color: var(--primary-contrast);
-  background: var(--primary);
-  padding: 0.4rem 1rem;
-  border-radius: 999px;
-}
-
-.site-search__button:hover {
-  background: var(--primary-dark);
 }
 
 /* ---- RodapÃ© ---- */
@@ -536,71 +491,6 @@ code {
   color: #fff;
   font-size: 0.78rem;
   font-weight: 700;
-}
-
-/* Elemento decorativo do hero (rede de nÃ³s) */
-.rnds-hero__visual {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.rnds-network {
-  position: absolute;
-  top: 3.2rem;
-  right: 6%;
-  width: 280px;
-  height: 280px;
-  border: 1px solid rgba(255, 255, 255, 0.27);
-  border-radius: 50%;
-}
-
-.rnds-network::after {
-  content: "";
-  position: absolute;
-  inset: 46px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-}
-
-.rnds-node {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 54px;
-  height: 54px;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 50%;
-  background: rgba(20, 152, 207, 0.6);
-  box-shadow: 0 0 25px rgba(11, 217, 223, 0.33);
-  color: #fff;
-  font-size: 1.3rem;
-  z-index: 5;
-}
-
-.rnds-node--cloud {
-  top: -2px;
-  right: 18%;
-}
-
-.rnds-node--users {
-  top: 96px;
-  right: 36%;
-}
-
-.rnds-node--graph {
-  top: 108px;
-  right: 1%;
-}
-
-.rnds-node--health {
-  top: 178px;
-  right: 20%;
-  font-size: 1.8rem;
 }
 
 .rnds-main {
@@ -1598,26 +1488,8 @@ textarea:focus-visible {
 /* ---- Responsivo ---- */
 
 @media (max-width: 1050px) {
-  .site-header__inner {
-    grid-template-columns: 1fr;
-    gap: 0.8rem;
-  }
-
-  .site-search {
-    max-width: 100%;
-    order: 3;
-  }
-
-  .site-nav {
-    order: 2;
-  }
-
   .feature-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .rnds-hero__visual {
-    opacity: 0.4;
   }
 }
 
@@ -1709,23 +1581,29 @@ textarea:focus-visible {
 }
 
 @media (max-width: 540px) {
-  .rnds-hero__visual {
-    display: none;
-  }
-
   .rnds-hero__content {
-    padding-bottom: 11rem;
+    padding-bottom: 2.5rem;
   }
 
   .rnds-hero__metrics {
+    position: static;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
+    margin-top: 1.5rem;
+  }
+
+  .rnds-hero__metrics li {
+    height: auto;
+    padding: 0.4rem 0.6rem;
+    border-right: 0;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
   }
 }
 
 
-/* ---- RNDS: Atualização UX ---- */
+/* ---- RNDS: Atualizaï¿½ï¿½o UX ---- */
 
 .rnds-hero {
   background: radial-gradient(120% 140% at 50% 0%, rgba(16, 215, 223, 0.25) 0%, transparent 55%),
@@ -1733,14 +1611,6 @@ textarea:focus-visible {
   color: var(--primary-contrast);
   position: relative;
   overflow: hidden;
-}
-
-.rnds-hero__visual::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(60% 50% at 70% 40%, rgba(16, 215, 223, 0.28) 0%, transparent 70%);
-  filter: blur(0.5px);
 }
 
 .anexos-grid {

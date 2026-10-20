@@ -125,15 +125,6 @@ export default function HomePage() {
             </li>
           </ul>
         </div>
-
-        <div className="rnds-hero__visual" aria-hidden="true">
-          <div className="rnds-network">
-            <span className="rnds-node rnds-node--cloud">☁</span>
-            <span className="rnds-node rnds-node--users">◍</span>
-            <span className="rnds-node rnds-node--graph">◈</span>
-            <span className="rnds-node rnds-node--health">✚</span>
-          </div>
-        </div>
       </section>
 
       <main className="container rnds-main">
