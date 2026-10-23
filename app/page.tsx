@@ -484,6 +484,24 @@ export default function HomePage() {
                 Baixar resumo do plano
               </a>
             </article>
+
+            <article className="anexo-card">
+              <h3 className="anexo-card__titulo">
+                Painel de Navegação Institucional — proposta MS
+              </h3>
+              <p className="anexo-card__meta">Planilha · Domínio Institucional (1.1 a 1.5)</p>
+              <p className="anexo-card__desc">
+                Proposta de painel de navegação com a estrutura de atividades do domínio
+                Institucional, subdomínios e lista de atividades da Federalização da RNDS em MS.
+              </p>
+              <a
+                className="anexo-card__link"
+                href="/painel-navegacao-institucional-ms.xlsx"
+                download
+              >
+                Baixar planilha (.xlsx)
+              </a>
+            </article>
           </div>
         </section>
       </main>
