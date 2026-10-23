@@ -1671,3 +1671,169 @@ textarea:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+/* ---- Domínios e equipe (Oficina agosto/2026) ---- */
+
+.cor-institucional {
+  --dominio-cor: #9c2626;
+}
+
+.cor-governanca {
+  --dominio-cor: #824a98;
+}
+
+.cor-informacao {
+  --dominio-cor: #2a852a;
+}
+
+.cor-comunicacao {
+  --dominio-cor: #c99a00;
+}
+
+.status-badge--nao_iniciado {
+  background: #bdbdbd;
+  color: #33414f;
+}
+
+.status-badge--primeiros_passos {
+  background: #ffb74d;
+  color: #4a2c00;
+}
+
+.status-badge--em_curso {
+  background: #64b5f6;
+  color: #0b3a5e;
+}
+
+.status-badge--consolidado {
+  background: #81c784;
+  color: #14380f;
+}
+
+.dominios-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.dominio-card {
+  padding: 20px 22px;
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--dominio-cor, var(--link));
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.dominio-card h3 {
+  margin-bottom: 10px;
+  color: var(--dominio-cor, var(--ink));
+  font-size: 1.12rem;
+}
+
+.dominio-card__objetivo {
+  margin-bottom: 14px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.dominio-card__itens {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dominio-card__itens li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.dominio-card__item-nome {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.dominio-card__item-nome b {
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.dominio-card__item-nome small {
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.dominio-card__itens .status-badge {
+  flex: none;
+  margin: 1px 0 0;
+}
+
+.equipe-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.equipe-card {
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--dominio-cor, var(--link));
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.equipe-card h3 {
+  margin-bottom: 12px;
+  color: var(--dominio-cor, var(--ink));
+  font-size: 0.98rem;
+}
+
+.equipe-card p {
+  margin: 0 0 10px;
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+.equipe-card p:last-child {
+  margin-bottom: 0;
+}
+
+.equipe-card p b {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--link);
+  font-size: 0.7rem;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1050px) {
+  .dominios-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .equipe-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .equipe-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dominio-card__itens li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}

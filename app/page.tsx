@@ -1,8 +1,9 @@
 // Landing page pública da Federalização da RNDS em Mato Grosso do Sul.
 // Página 100% estática (sem banco de dados, sem sessão): conteúdo editorial
 // fixo baseado no Plano de Trabalho da Federalização da RNDS — V.2
-// (Estado: Mato Grosso do Sul, 2026). As etapas exibidas podem ser ajustadas
-// diretamente neste arquivo ou, futuramente, tornadas editáveis novamente.
+// (Estado: Mato Grosso do Sul, 2026) e na Oficina Online de Apresentação dos
+// Planos de Trabalho (agosto/2026). As etapas e os status dos domínios podem
+// ser ajustados diretamente neste arquivo.
 
 import Link from "next/link";
 import {
@@ -42,6 +43,197 @@ const ETAPAS = [
   },
 ];
 
+type StatusDominio = "nao_iniciado" | "primeiros_passos" | "em_curso" | "consolidado";
+
+interface ItemDominio {
+  nome: string;
+  detalhe?: string;
+  status?: StatusDominio;
+  rotulo?: string;
+}
+
+interface Dominio {
+  id: string;
+  variante: string;
+  nome: string;
+  objetivo: string;
+  itens: ItemDominio[];
+}
+
+const DOMINIOS: Dominio[] = [
+  {
+    id: "institucional",
+    variante: "institucional",
+    nome: "Domínio Institucional",
+    objetivo:
+      "Fortalecer a estrutura institucional da Saúde Digital, com área formalizada, instrumentos de governança atualizados, recursos financeiros e equipes qualificadas para apoiar a Federalização da RNDS.",
+    itens: [
+      {
+        nome: "Área, órgão e equipe responsável",
+        detalhe: "Definição do Grupo de Trabalho",
+        status: "consolidado",
+        rotulo: "Consolidado",
+      },
+      {
+        nome: "Políticas, normativos e guias",
+        detalhe: "Definir políticas",
+        status: "em_curso",
+        rotulo: "Em curso",
+      },
+      {
+        nome: "Orçamento",
+        detalhe: "Definir orçamento",
+        status: "consolidado",
+        rotulo: "Consolidado",
+      },
+      {
+        nome: "Relações institucionais",
+        detalhe: "Definir relações institucionais",
+        status: "primeiros_passos",
+        rotulo: "Primeiros passos",
+      },
+      {
+        nome: "Formação e qualificação",
+        detalhe: "Definir modelo de qualificação",
+        status: "primeiros_passos",
+        rotulo: "Primeiros passos",
+      },
+    ],
+  },
+  {
+    id: "governanca",
+    variante: "governanca",
+    nome: "Domínio Governança",
+    objetivo:
+      "Fortalecer a governança da Saúde Digital, alinhando políticas, recursos, equipes e processos aos objetivos estratégicos da SES e à Federalização da RNDS.",
+    itens: [
+      {
+        nome: "Governança do projeto",
+        detalhe: "Governança do Projeto de Federalização da RNDS",
+        status: "em_curso",
+        rotulo: "Em curso",
+      },
+      {
+        nome: "Governança de políticas",
+        detalhe: "Governança de políticas estabelecidas",
+        status: "em_curso",
+        rotulo: "Em curso",
+      },
+      {
+        nome: "Governança de sistemas e dados",
+        detalhe: "Sistemas de informações e/ou base de dados",
+        status: "consolidado",
+        rotulo: "Consolidado",
+      },
+      {
+        nome: "Governança orçamentária",
+        status: "consolidado",
+        rotulo: "Consolidado",
+      },
+      {
+        nome: "Formação e qualificação",
+        status: "nao_iniciado",
+        rotulo: "Não iniciado",
+      },
+    ],
+  },
+  {
+    id: "informacao",
+    variante: "informacao",
+    nome: "Domínio Informação e Informática",
+    objetivo:
+      "Fortalecer a infraestrutura tecnológica, conectividade, segurança da informação e gestão dos dados da RNDS, garantindo recursos computacionais adequados, monitoramento contínuo, melhoria dos serviços digitais e competências técnicas que sustentem a Federalização.",
+    itens: [
+      {
+        nome: "Infraestrutura de TI",
+        detalhe: "Sustentação e evolução da RNDS MS",
+        status: "consolidado",
+        rotulo: "Consolidado",
+      },
+      {
+        nome: "Segurança",
+        detalhe: "Segurança cibernética e da informação",
+        status: "consolidado",
+        rotulo: "Consolidado",
+      },
+      {
+        nome: "Informação",
+        detalhe: "Tratamento e uso adequado da informação",
+        status: "em_curso",
+        rotulo: "Em curso",
+      },
+      {
+        nome: "Equipe",
+        detalhe: "Definição e qualificação da equipe de sustentação",
+        status: "em_curso",
+        rotulo: "Em curso",
+      },
+      {
+        nome: "Formação e qualificação",
+        detalhe: "Capacitação para sustentação dos serviços da RNDS",
+        status: "em_curso",
+        rotulo: "Em curso",
+      },
+    ],
+  },
+  {
+    id: "comunicacao",
+    variante: "comunicacao",
+    nome: "Domínio Comunicação",
+    objetivo:
+      "Apoiar a implementação da Federalização dos Dados da RNDS por meio da comunicação institucional, assegurando a divulgação das informações e das principais entregas do projeto nos canais oficiais da SES-MS.",
+    itens: [
+      {
+        nome: "Camada 1 — Direção estratégica",
+        detalhe:
+          "Consolidar o fluxo institucional de comunicação e promover a divulgação e o uso dos dados pelos públicos estratégicos.",
+      },
+      {
+        nome: "Camada 2 — Estrutura e sustentação",
+        detalhe:
+          "Priorizar os recursos e canais existentes na SES-MS, com responsabilidades compartilhadas e apoio da Secom quando necessário.",
+      },
+      {
+        nome: "Camada 3 — Execução e rotina",
+        detalhe:
+          "Priorizar ações viáveis de comunicação, conforme demanda, prioridades e capacidade operacional.",
+      },
+      {
+        nome: "Camada 4 — Monitoramento e continuidade",
+        detalhe:
+          "Monitorar trimestralmente fluxos, canais e resultados para ajustar prioridades e rotinas.",
+      },
+    ],
+  },
+];
+
+const EQUIPE = [
+  {
+    dominio: "Institucional",
+    variante: "institucional",
+    titular: "Crhistinne Cavalheiro Maymone Gonçalves",
+    suplente: "Márcia Bogena Cereser Tomasi",
+  },
+  {
+    dominio: "Governança",
+    variante: "governanca",
+    titular: "Edelma Lene Peixoto Tibúrcio",
+    suplente: "Alessandro Pinho Salomão",
+  },
+  {
+    dominio: "Informação e Informática",
+    variante: "informacao",
+    titular: "Marcos Espíndola de Freitas",
+    suplente: "Tiago Oliveira Vargas",
+  },
+  {
+    dominio: "Comunicação",
+    variante: "comunicacao",
+    titular: "Fernanda Cristina Rodrigues",
+    suplente: "Kamilla Nunes Ratier Camacho",
+  },
+];
+
 const DESTAQUES = [
   {
     id: "projeto",
@@ -71,12 +263,13 @@ const DESTAQUES = [
     href: "#o-que-e-rnds",
   },
   {
-    id: "acompanhe-o-projeto",
+    id: "dominios",
     variante: "laranja",
     icone: <IconeRede />,
-    titulo: "Acompanhe o Projeto",
-    texto: "De onde partimos e para onde vamos: a jornada estadual em Mato Grosso do Sul.",
-    href: "#onde-estamos",
+    titulo: "Domínios",
+    texto:
+      "Institucional, governança, informação e informática e comunicação: o andamento de cada frente do plano.",
+    href: "#dominios",
   },
 ];
 
@@ -117,10 +310,10 @@ export default function HomePage() {
               </span>
             </li>
             <li className="rnds-hero__metric--last">
-              <b>MS</b>
+              <b>{DOMINIOS.length}</b>
               <span>
-                <strong>Instância</strong>
-                estadual
+                <strong>Domínios</strong>
+                do projeto
               </span>
             </li>
           </ul>
@@ -170,6 +363,44 @@ export default function HomePage() {
           </article>
         </section>
 
+        <section className="timeline-section" id="dominios">
+          <p>DOMÍNIOS DO PLANO</p>
+          <h2>O andamento de cada frente</h2>
+
+          <p className="notice">
+            Situação apresentada na Oficina Online de Apresentação dos Planos de Trabalho
+            (agosto/2026). O domínio de Comunicação está organizado em camadas de atuação.
+          </p>
+
+          <div className="dominios-grid">
+            {DOMINIOS.map((dominio) => (
+              <article
+                key={dominio.id}
+                className={`dominio-card cor-${dominio.variante}`}
+                id={`dominio-${dominio.id}`}
+              >
+                <h3>{dominio.nome}</h3>
+                <p className="dominio-card__objetivo">{dominio.objetivo}</p>
+                <ul className="dominio-card__itens">
+                  {dominio.itens.map((item) => (
+                    <li key={item.nome}>
+                      <span className="dominio-card__item-nome">
+                        <b>{item.nome}</b>
+                        {item.detalhe ? <small>{item.detalhe}</small> : null}
+                      </span>
+                      {item.status ? (
+                        <span className={`status-badge status-badge--${item.status}`}>
+                          {item.rotulo}
+                        </span>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section className="timeline-section" id="onde-estamos">
           <p>ONDE ESTAMOS</p>
           <h2>Etapas da federalização em MS</h2>
@@ -195,6 +426,32 @@ export default function HomePage() {
           </ol>
         </section>
 
+        <section className="timeline-section" id="equipe">
+          <p>EQUIPE DE REFERÊNCIA</p>
+          <h2>Quem conduz o projeto em MS</h2>
+
+          <p className="notice">
+            Titulares e suplentes de cada domínio, conforme a composição apresentada na Oficina
+            (agosto/2026).
+          </p>
+
+          <div className="equipe-grid">
+            {EQUIPE.map((membro) => (
+              <article key={membro.dominio} className={`equipe-card cor-${membro.variante}`}>
+                <h3>{membro.dominio}</h3>
+                <p>
+                  <b>Titular</b>
+                  <span>{membro.titular}</span>
+                </p>
+                <p>
+                  <b>Suplente</b>
+                  <span>{membro.suplente}</span>
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section className="documents" id="documentos">
           <div className="documents__title">
             <span className="documents__icon">
@@ -204,7 +461,8 @@ export default function HomePage() {
               <p>PLANO DE TRABALHO</p>
               <h2>Documento oficial</h2>
               <span>
-                Plano de Trabalho da Federalização da RNDS — V.2 (Estado: Mato Grosso do Sul, 2026).
+                Plano de Trabalho da Federalização da RNDS — V.2 (MS, 24/07/2026) e Oficina de
+                Apresentação dos Planos de Trabalho (agosto/2026).
               </span>
             </div>
           </div>
@@ -212,14 +470,15 @@ export default function HomePage() {
           <div className="anexos-grid">
             <article className="anexo-card">
               <h3 className="anexo-card__titulo">
-                Plano de Trabalho da Federalização da RNDS — MS (V.2)
+                Resumo do Plano de Trabalho da Federalização da RNDS — MS
               </h3>
               <p className="anexo-card__meta">
-                CGIIS · DATASUS · SEIDIGI · MS — edição de 24/07/2026
+                Plano V.2 (24/07/2026) · Oficina de Apresentação (agosto/2026)
               </p>
               <p className="anexo-card__desc">
-                Documento com o cenário-alvo, a metodologia, os quatro domínios do projeto e as
-                etapas estaduais da federalização da RNDS em Mato Grosso do Sul.
+                Cenário-alvo, metodologia, os quatro domínios com a situação de cada frente, as
+                etapas estaduais, os pontos inovadores e os desafios da federalização em Mato Grosso
+                do Sul.
               </p>
               <a className="anexo-card__link" href="/rnds_apresentacao_ms.txt" download>
                 Baixar resumo do plano

@@ -1,1 +1,150 @@
-﻿
+﻿﻿FEDERALIZAÇÃO DA RNDS — MATO GROSSO DO SUL
+Resumo do Plano de Trabalho (V.2) e da Oficina de Apresentação dos Planos de Trabalho (agosto/2026)
+Secretaria de Estado de Saúde de Mato Grosso do Sul — SES/MS
+
+
+1. O QUE É A FEDERALIZAÇÃO DA RNDS
+
+A RNDS (Rede Nacional de Dados em Saúde) é a plataforma nacional de interoperabilidade
+mantida pelo DATASUS. Ela conecta estabelecimentos, sistemas e entes federativos para
+permitir a troca segura de informações clínicas e administrativas ao longo da jornada do
+cidadão no SUS, adotando o padrão HL7 FHIR e terminologias clínicas reconhecidas (LOINC,
+SNOMED CT e CID).
+
+A federalização é o modelo em que o estado opera a sua própria instância federada da RNDS,
+integrada à base nacional. Na prática, a SES/MS ganha autonomia para integrar sistemas
+locais (municipais e estaduais) mantendo sincronização contínua com a base federal.
+
+
+2. ETAPAS DA FEDERALIZAÇÃO EM MS
+
+Etapa 1 — Acesso e extração de dados (Bucket S3) — Em andamento
+Fase de preparação e homologação (2026-2027), seguida da integração e carga histórica
+(até 2028), com acesso ao bucket S3 de extração de dados da RNDS.
+
+Etapa 2 — Tratamento dos dados da RNDS — Não iniciada
+Padronização, qualidade e segurança dos dados extraídos, preparando-os para a geração de
+indicadores.
+
+Etapa 3 — Disseminação e uso dos dados da RNDS — Não iniciada
+Ampliação de parcerias e uso estratégico dos dados para gestão e vigilância em saúde em
+Mato Grosso do Sul.
+
+
+3. DOMÍNIOS DO PROJETO — SITUAÇÃO EM AGOSTO/2026
+
+3.1 Domínio Institucional
+Objetivo: fortalecer a estrutura institucional da Saúde Digital, com área formalizada,
+instrumentos de governança atualizados, recursos financeiros e equipes qualificadas para
+apoiar a Federalização da RNDS.
+- Área, órgão e equipe responsável (definição do Grupo de Trabalho): Consolidado
+- Políticas, normativos e guias (definir políticas): Em curso
+- Orçamento (definir orçamento): Consolidado
+- Relações institucionais (definir relações institucionais): Primeiros passos
+- Formação e qualificação (definir modelo de qualificação): Primeiros passos
+
+3.2 Domínio Governança
+Objetivo: fortalecer a governança da Saúde Digital, alinhando políticas, recursos, equipes
+e processos aos objetivos estratégicos da SES e à Federalização da RNDS.
+- Governança do projeto: Em curso
+- Governança de políticas: Em curso
+- Governança de sistemas e dados: Consolidado
+- Governança orçamentária: Consolidado
+- Formação e qualificação: Não iniciado
+
+3.3 Domínio Informação e Informática
+Objetivo: fortalecer a infraestrutura tecnológica, conectividade, segurança da informação e
+gestão dos dados da RNDS, garantindo recursos computacionais adequados, monitoramento
+contínuo, melhoria dos serviços digitais e competências técnicas que sustentem a
+Federalização.
+- Infraestrutura de TI: Consolidado
+- Segurança (cibernética e da informação): Consolidado
+- Informação (tratamento e uso adequado): Em curso
+- Equipe (definição e qualificação da equipe de sustentação): Em curso
+- Formação e qualificação: Em curso
+
+3.4 Domínio Comunicação
+Objetivo: apoiar a implementação da Federalização dos Dados da RNDS por meio da comunicação
+institucional, assegurando a divulgação das informações e das principais entregas do
+projeto nos canais oficiais da SES/MS.
+- Camada 1 — Direção estratégica: consolidar o fluxo institucional de comunicação e
+  promover a divulgação e o uso dos dados pelos públicos estratégicos.
+- Camada 2 — Estrutura e sustentação: priorizar os recursos e canais existentes na SES/MS,
+  com responsabilidades compartilhadas e apoio da Secom quando necessário.
+- Camada 3 — Execução e rotina: priorizar ações viáveis de comunicação, conforme demanda,
+  prioridades e capacidade operacional.
+- Camada 4 — Monitoramento e continuidade: monitorar trimestralmente fluxos, canais e
+  resultados para ajustar prioridades e rotinas.
+(Status das camadas não detalhado na apresentação.)
+
+
+4. EQUIPE DE REFERÊNCIA
+
+Institucional
+- Titular: Crhistinne Cavalheiro Maymone Gonçalves
+- Suplente: Márcia Bogena Cereser Tomasi
+
+Governança
+- Titular: Edelma Lene Peixoto Tibúrcio
+- Suplente: Alessandro Pinho Salomão
+
+Informação e Informática
+- Titular: Marcos Espíndola de Freitas
+- Suplente: Tiago Oliveira Vargas
+
+Comunicação
+- Titular: Fernanda Cristina Rodrigues
+- Suplente: Kamilla Nunes Ratier Camacho
+
+
+5. PONTOS INOVADORES
+
+- Institucional — Parcerias para além da saúde: articulações técnicas com a SEJUSP
+  (Segurança Pública e Justiça), SEAD (Assistência Social), SANESUL (água e saneamento) e
+  UEMS (Universidade Estadual de MS) para compartilhamento de informações, indicadores
+  colaborativos e projetos conjuntos.
+- Governança — Alta gestão na titularidade do projeto: o Chefe de Gabinete da SES é o
+  titular do domínio de Governança, garantindo apoio direto da alta gestão e agilidade nas
+  decisões.
+- Comunicação — Uso do e-MS como canal oficial: comunicados e cartilha digital tramitam
+  pelo sistema de processos, com fluxo antecipado de validação trimestral de pautas.
+- Informação e Informática — REDE SAÚDE-MS e Prontuário Eletrônico Estadual: estratégia
+  própria de interoperabilidade que cruza dados da RNDS com sistemas estaduais, além de
+  análises preditivas com dados históricos.
+
+
+6. DESAFIOS E PONTOS DE ATENÇÃO
+
+Desafios
+- Indefinição orçamentária federal: ausência de definição do modelo de repasse para a
+  federalização, levando o estado a assumir cofinanciamento próprio.
+- Infraestrutura e equipe tecnológica: necessidade de ampliar funções e perfis técnicos
+  especializados.
+- Limitações da equipe de comunicação: assessoria com apenas três profissionais para toda
+  a SES, sem orçamento próprio ou equipe dedicada de audiovisual/design.
+- Integração institucional: normativas complexas (PDTIC, Políticas de Segurança da
+  Informação) dependem de validações burocráticas e articulação com a alta gestão.
+- Complexidade demográfica e socioambiental: fronteiras extensas, populações flutuantes
+  (Rota Bioceânica e Rota da Celulose) e populações vulneráveis (indígenas e ribeirinhas).
+
+Pontos de atenção
+- Monitoramento orçamentário e financeiro, com painel gerencial da execução.
+- Monitoramento de segurança cibernética: vulnerabilidades, backups, logs e perfis de
+  acesso ao repositório local e ao bucket S3.
+- Revisão trimestral do fluxo de comunicação e do uso do e-MS.
+- Maturidade das políticas e gestão de riscos, incluindo conformidade com a LGPD e trocas
+  de gestão.
+- Reprogramação por emergências em saúde (sazonalidade, epidemias e surtos).
+
+
+7. PROCESSOS-CHAVE
+
+- Governança, regulamentação e tomada de decisão.
+- Interoperabilidade, arquitetura e jornada de dados.
+- Planejamento financeiro e sustentabilidade orçamentária.
+- Comunicação institucional e disseminação do conhecimento.
+
+
+FONTES
+- Plano de Trabalho da Federalização da RNDS — V.2 (Estado: Mato Grosso do Sul, 24/07/2026).
+- Oficina Online de Apresentação dos Planos de Trabalho (agosto/2026).

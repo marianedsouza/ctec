@@ -23,6 +23,7 @@ export default function SiteHeader() {
         <nav className="site-nav" aria-label="Navegação principal">
           <Link href="/">Início</Link>
           <Link href="/#o-que-e-rnds">RNDS</Link>
+          <Link href="/#dominios">Domínios</Link>
           <Link href="/#onde-estamos">Etapas</Link>
           <Link href="/#documentos">Documentos</Link>
         </nav>
