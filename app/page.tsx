@@ -234,6 +234,49 @@ const EQUIPE = [
   },
 ];
 
+const DOCUMENTOS = [
+  {
+    titulo: "Resumo do Plano de Trabalho da Federalização da RNDS — MS",
+    meta: "Plano V.2 (24/07/2026) · Oficina de Apresentação (agosto/2026)",
+    descricao:
+      "Cenário-alvo, metodologia, os quatro domínios com a situação de cada frente, as etapas estaduais, os pontos inovadores e os desafios da federalização em Mato Grosso do Sul.",
+    href: "/rnds_apresentacao_ms.txt",
+    cta: "Baixar resumo do plano",
+  },
+  {
+    titulo: "Painel de Navegação — Domínio Institucional",
+    meta: "Planilha · subdomínios 1.1 a 1.5",
+    descricao:
+      "Proposta de painel de navegação com a estrutura de atividades do domínio Institucional e a lista de atividades da federalização em MS.",
+    href: "/painel-navegacao-institucional-ms.xlsx",
+    cta: "Baixar planilha (.xlsx)",
+  },
+  {
+    titulo: "Painel de Navegação — Domínio Governança",
+    meta: "Planilha · subdomínios 2.1 a 2.5",
+    descricao:
+      "Proposta de painel de navegação com a estrutura de atividades do domínio Governança e a lista de atividades da federalização em MS.",
+    href: "/painel-navegacao-governanca-ms.xlsx",
+    cta: "Baixar planilha (.xlsx)",
+  },
+  {
+    titulo: "Painel de Navegação — Domínio Informação e Informática",
+    meta: "Planilha · subdomínios 3.1 a 3.5",
+    descricao:
+      "Proposta de painel de navegação com a estrutura de atividades do domínio Informação e Informática e a lista de atividades da federalização em MS.",
+    href: "/painel-navegacao-informacao-ms.xlsx",
+    cta: "Baixar planilha (.xlsx)",
+  },
+  {
+    titulo: "Painel de Navegação — Domínio Comunicação",
+    meta: "Planilha · camadas de comunicação e banco de atividades",
+    descricao:
+      "Proposta de painel de navegação com as camadas de comunicação (direção estratégica, estrutura e sustentação, execução e rotina e continuidade) e o banco de atividades.",
+    href: "/painel-navegacao-comunicacao-ms.xlsx",
+    cta: "Baixar planilha (.xlsx)",
+  },
+];
+
 const DESTAQUES = [
   {
     id: "projeto",
@@ -468,40 +511,16 @@ export default function HomePage() {
           </div>
 
           <div className="anexos-grid">
-            <article className="anexo-card">
-              <h3 className="anexo-card__titulo">
-                Resumo do Plano de Trabalho da Federalização da RNDS — MS
-              </h3>
-              <p className="anexo-card__meta">
-                Plano V.2 (24/07/2026) · Oficina de Apresentação (agosto/2026)
-              </p>
-              <p className="anexo-card__desc">
-                Cenário-alvo, metodologia, os quatro domínios com a situação de cada frente, as
-                etapas estaduais, os pontos inovadores e os desafios da federalização em Mato Grosso
-                do Sul.
-              </p>
-              <a className="anexo-card__link" href="/rnds_apresentacao_ms.txt" download>
-                Baixar resumo do plano
-              </a>
-            </article>
-
-            <article className="anexo-card">
-              <h3 className="anexo-card__titulo">
-                Painel de Navegação Institucional — proposta MS
-              </h3>
-              <p className="anexo-card__meta">Planilha · Domínio Institucional (1.1 a 1.5)</p>
-              <p className="anexo-card__desc">
-                Proposta de painel de navegação com a estrutura de atividades do domínio
-                Institucional, subdomínios e lista de atividades da Federalização da RNDS em MS.
-              </p>
-              <a
-                className="anexo-card__link"
-                href="/painel-navegacao-institucional-ms.xlsx"
-                download
-              >
-                Baixar planilha (.xlsx)
-              </a>
-            </article>
+            {DOCUMENTOS.map((documento) => (
+              <article className="anexo-card" key={documento.href}>
+                <h3 className="anexo-card__titulo">{documento.titulo}</h3>
+                <p className="anexo-card__meta">{documento.meta}</p>
+                <p className="anexo-card__desc">{documento.descricao}</p>
+                <a className="anexo-card__link" href={documento.href} download>
+                  {documento.cta}
+                </a>
+              </article>
+            ))}
           </div>
         </section>
       </main>
