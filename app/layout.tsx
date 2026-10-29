@@ -22,6 +22,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body>
+        <a className="skip-link" href="#conteudo">
+          Pular para o conteúdo
+        </a>
         <div className="app-shell">
           <SiteHeader />
 
@@ -41,9 +44,10 @@ export default function RootLayout({
               </div>
 
               <div className="site-footer__links">
-                <Link href="/">Início</Link> · <Link href="/#o-que-e-rnds">RNDS</Link> ·{" "}
-                <Link href="/#dominios">Domínios</Link> ·{" "}
-                <Link href="/#onde-estamos">Etapas</Link> ·{" "}
+                <Link href="/">Início</Link> · <Link href="/#projeto">Projeto</Link> ·{" "}
+                <Link href="/#rnds">RNDS</Link> · <Link href="/#dominios">Domínios</Link> ·{" "}
+                <Link href="/#plano">Plano de Trabalho</Link> ·{" "}
+                <Link href="/#equipe">Equipe</Link> ·{" "}
                 <Link href="/#documentos">Documentos</Link>
               </div>
 

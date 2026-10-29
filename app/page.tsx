@@ -1,9 +1,10 @@
 // Landing page pública da Federalização da RNDS em Mato Grosso do Sul.
 // Página 100% estática (sem banco de dados, sem sessão): conteúdo editorial
 // fixo baseado no Plano de Trabalho da Federalização da RNDS — V.2
-// (Estado: Mato Grosso do Sul, 2026) e na Oficina Online de Apresentação dos
-// Planos de Trabalho (agosto/2026). As etapas e os status dos domínios podem
-// ser ajustados diretamente neste arquivo.
+// (Estado: Mato Grosso do Sul, 2026), na Oficina Online de Apresentação dos
+// Planos de Trabalho (agosto/2026) e em publicações oficiais do Ministério da
+// Saúde/Conass. As etapas e os status dos domínios podem ser ajustados
+// diretamente neste arquivo.
 
 import Link from "next/link";
 import {
@@ -20,26 +21,65 @@ const ETAPAS = [
   {
     ordem: 1,
     nome: "Acesso e extração de dados (Bucket S3)",
+    periodo: "2026–2028",
     status: "em_andamento" as const,
     rotuloStatus: "Em andamento",
     descricao:
       "Fase de preparação e homologação (2026-2027), seguida da integração e carga histórica (até 2028), com acesso ao bucket S3 de extração de dados da RNDS.",
+    entregas: [
+      "Credenciais e ambiente de acesso ao bucket S3",
+      "Homologação técnica e de segurança da extração",
+      "Integração e carga histórica dos dados",
+    ],
   },
   {
     ordem: 2,
     nome: "Tratamento dos dados da RNDS",
+    periodo: "A definir",
     status: "nao_iniciada" as const,
     rotuloStatus: "Não iniciada",
     descricao:
       "Padronização, qualidade e segurança dos dados extraídos, preparando-os para a geração de indicadores.",
+    entregas: [
+      "Padronização e qualificação dos dados",
+      "Conformidade com segurança da informação e LGPD",
+      "Preparação da base para indicadores",
+    ],
   },
   {
     ordem: 3,
     nome: "Disseminação e uso dos dados da RNDS",
+    periodo: "A definir",
     status: "nao_iniciada" as const,
     rotuloStatus: "Não iniciada",
     descricao:
       "Ampliação de parcerias e uso estratégico dos dados para gestão e vigilância em saúde em Mato Grosso do Sul.",
+    entregas: [
+      "Ampliação de parcerias institucionais",
+      "Painéis e indicadores para a gestão",
+      "Uso dos dados na vigilância e no planejamento",
+    ],
+  },
+];
+
+const TRAJETORIA = [
+  {
+    fase: "Etapa piloto",
+    periodo: "2024–2025",
+    descricao:
+      "Oito estados (BA, CE, ES, GO, PE, PI, SC e TO) participaram da cocriação da política nacional de acesso aos dados da RNDS.",
+  },
+  {
+    fase: "Etapa estadual",
+    periodo: "2025–2026",
+    descricao:
+      "Expansão para as 27 unidades da federação, com oficinas dos quatro domínios e elaboração dos planos de trabalho estaduais.",
+  },
+  {
+    fase: "Etapa municipal",
+    periodo: "A partir de 2026",
+    descricao:
+      "Expansão progressiva às capitais, aos municípios estratégicos e, por fim, a todos os municípios brasileiros.",
   },
 ];
 
@@ -207,6 +247,13 @@ const DOMINIOS: Dominio[] = [
   },
 ];
 
+const LEGENDA_STATUS: { status: StatusDominio; rotulo: string }[] = [
+  { status: "consolidado", rotulo: "Consolidado" },
+  { status: "em_curso", rotulo: "Em curso" },
+  { status: "primeiros_passos", rotulo: "Primeiros passos" },
+  { status: "nao_iniciado", rotulo: "Não iniciado" },
+];
+
 const EQUIPE = [
   {
     dominio: "Institucional",
@@ -283,37 +330,95 @@ const DESTAQUES = [
     variante: "azul",
     icone: <IconeDocumento />,
     titulo: "Projeto",
+    tag: "Visão geral",
     texto:
-      "Entenda o escopo da federalização da RNDS em Mato Grosso do Sul e os conceitos que sustentam o projeto estadual.",
-    href: "#projeto-info",
-  },
-  {
-    id: "plano-de-trabalho",
-    variante: "verde",
-    icone: <IconePlano />,
-    titulo: "Plano de Trabalho",
-    texto:
-      "Acompanhe as ações planejadas e executadas, com o andamento registrado etapa a etapa.",
-    href: "#onde-estamos",
+      "O escopo da federalização em MS, o que muda para o estado e a base legal que sustenta a iniciativa.",
+    cta: "Conhecer o projeto",
+    href: "#projeto",
   },
   {
     id: "rnds",
     variante: "roxo",
     icone: <IconeGrafico />,
     titulo: "RNDS",
+    tag: "Conceitos",
     texto:
-      "As vantagens de consumir dados nacionais: interoperabilidade, padrões e visão única da jornada no SUS.",
-    href: "#o-que-e-rnds",
+      "O que é a Rede Nacional de Dados em Saúde, como os dados circulam e o que isso muda no cuidado.",
+    cta: "Entender a RNDS",
+    href: "#rnds",
   },
   {
     id: "dominios",
     variante: "laranja",
     icone: <IconeRede />,
     titulo: "Domínios",
+    tag: "Andamento",
     texto:
-      "Institucional, governança, informação e informática e comunicação: o andamento de cada frente do plano.",
+      "Institucional, governança, informação e informática e comunicação: a situação de cada frente do plano.",
+    cta: "Ver os domínios",
     href: "#dominios",
   },
+  {
+    id: "plano",
+    variante: "verde",
+    icone: <IconePlano />,
+    titulo: "Plano de Trabalho",
+    tag: "Execução",
+    texto:
+      "As etapas planejadas e executadas em MS, com prazos previstos e o andamento registrado etapa a etapa.",
+    cta: "Abrir o plano",
+    href: "#plano",
+  },
+];
+
+const BENEFICIOS_RNDS = [
+  {
+    titulo: "Interoperabilidade",
+    texto:
+      "Padrão HL7 FHIR e terminologias reconhecidas, como LOINC, SNOMED CT e CID, para que sistemas diferentes troquem informações com segurança.",
+  },
+  {
+    titulo: "Continuidade do cuidado",
+    texto:
+      "O histórico clínico fica disponível no ponto de atendimento por meio do SUS Digital Profissional, apoiando a decisão dos profissionais.",
+  },
+  {
+    titulo: "Gestão e vigilância",
+    texto:
+      "Gestores acessam informações agregadas para planejamento, monitoramento e aprimoramento das políticas públicas de saúde.",
+  },
+  {
+    titulo: "Cidadania",
+    texto:
+      "O cidadão consulta seus próprios registros de saúde no aplicativo Meu SUS Digital, de forma segura e individualizada.",
+  },
+];
+
+const MUDANCAS_MS = [
+  {
+    titulo: "Instância federada",
+    texto:
+      "A SES-MS opera uma instância da RNDS integrada à base nacional, com sincronização contínua e autonomia para integrar sistemas locais.",
+  },
+  {
+    titulo: "Acesso estruturado",
+    texto:
+      "Acesso contínuo aos dados da RNDS, com extração pelo bucket S3 e carga histórica prevista até 2028.",
+  },
+  {
+    titulo: "Uso qualificado",
+    texto:
+      "Dados padronizados e seguros para qualificar o planejamento, a vigilância e a tomada de decisão no território sul-mato-grossense.",
+  },
+];
+
+const NAVEGACAO_INTERNA = [
+  { href: "#projeto", rotulo: "Projeto" },
+  { href: "#rnds", rotulo: "O que é a RNDS" },
+  { href: "#dominios", rotulo: "Domínios" },
+  { href: "#plano", rotulo: "Plano de trabalho" },
+  { href: "#equipe", rotulo: "Equipe" },
+  { href: "#documentos", rotulo: "Documentos" },
 ];
 
 export default function HomePage() {
@@ -363,57 +468,136 @@ export default function HomePage() {
         </div>
       </section>
 
-      <main className="container rnds-main">
-        <section className="feature-grid" aria-label="Destaques da federalização">
+      <main className="container rnds-main" id="conteudo">
+        <nav className="page-index" aria-label="Nesta página">
+          <span className="page-index__label">Nesta página</span>
+          <ul>
+            {NAVEGACAO_INTERNA.map((item) => (
+              <li key={item.href}>
+                <a href={item.href}>{item.rotulo}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <section className="feature-grid" aria-label="Pontos de entrada">
           {DESTAQUES.map((destaque) => (
-            <article
+            <Link
               key={destaque.id}
               className={`feature-card feature-card--${destaque.variante}`}
-              id={destaque.id}
+              href={destaque.href}
             >
-              <span className="feature-card__icon">{destaque.icone}</span>
+              <span className="feature-card__top">
+                <span className="feature-card__icon">{destaque.icone}</span>
+                <span className="feature-card__tag">{destaque.tag}</span>
+              </span>
               <h2>{destaque.titulo}</h2>
               <p>{destaque.texto}</p>
-              <a href={destaque.href}>
-                Acessar <b aria-hidden="true">→</b>
-              </a>
-            </article>
+              <span className="feature-card__cta">
+                {destaque.cta} <b aria-hidden="true">→</b>
+              </span>
+            </Link>
           ))}
         </section>
 
-        <section className="information" id="projeto-info">
-          <article id="o-que-e-rnds">
-            <small>O QUE É A RNDS</small>
-            <h2>Interoperabilidade nacional</h2>
-            <p>
-              A RNDS (Rede Nacional de Dados em Saúde) é a plataforma nacional de interoperabilidade
-              mantida pelo DATASUS. Ela conecta estabelecimentos, sistemas e entes federativos para
+        <section className="rnds-section" id="rnds" aria-labelledby="rnds-titulo">
+          <header className="section-head">
+            <p className="section-eyebrow">A REDE NACIONAL</p>
+            <h2 id="rnds-titulo">O que é a RNDS</h2>
+            <p className="section-lead">
+              A Rede Nacional de Dados em Saúde é a plataforma oficial de interoperabilidade do
+              Ministério da Saúde. Ela conecta estabelecimentos, sistemas e entes federativos para
               permitir a troca segura de informações clínicas e administrativas ao longo da jornada
-              do cidadão no SUS, adotando o padrão HL7 FHIR e terminologias clínicas reconhecidas
-              (LOINC, SNOMED CT e CID).
+              do cidadão no SUS.
             </p>
-          </article>
+          </header>
 
-          <article id="o-que-e-federalizacao">
-            <small>FEDERALIZAÇÃO</small>
-            <h2>Uma instância estadual</h2>
-            <p>
-              A federalização é o modelo em que o estado opera a sua própria instância federada da
-              RNDS, integrada à base nacional. Na prática, a SES-MS ganha autonomia para integrar
-              sistemas locais (municipais e estaduais) mantendo sincronização contínua com a base
-              federal.
-            </p>
-          </article>
+          <div className="benefit-grid">
+            {BENEFICIOS_RNDS.map((beneficio) => (
+              <article className="benefit-card" key={beneficio.titulo}>
+                <h3>{beneficio.titulo}</h3>
+                <p>{beneficio.texto}</p>
+              </article>
+            ))}
+          </div>
+
+          <p className="inline-note">
+            <strong>Modelos de informação registrados:</strong> resultados de exames laboratoriais
+            (REL), atendimento clínico (RAC), imunobiológicos administrados (RIA) e regulação
+            assistencial (RIRA).
+          </p>
         </section>
 
-        <section className="timeline-section" id="dominios">
-          <p>DOMÍNIOS DO PLANO</p>
-          <h2>O andamento de cada frente</h2>
+        <section className="rnds-section" id="projeto" aria-labelledby="projeto-titulo">
+          <header className="section-head">
+            <p className="section-eyebrow">O PROJETO EM MS</p>
+            <h2 id="projeto-titulo">Federalização: uma instância estadual integrada à base nacional</h2>
+            <p className="section-lead">
+              A federalização é o modelo em que o estado opera a sua própria instância da RNDS,
+              integrada à base nacional. Na prática, a SES-MS ganha autonomia para integrar sistemas
+              locais, municipais e estaduais, mantendo sincronização contínua com a base federal.
+            </p>
+          </header>
 
-          <p className="notice">
-            Situação apresentada na Oficina Online de Apresentação dos Planos de Trabalho
-            (agosto/2026). O domínio de Comunicação está organizado em camadas de atuação.
-          </p>
+          <div className="pillar-grid">
+            {MUDANCAS_MS.map((mudanca) => (
+              <article className="pillar-card" key={mudanca.titulo}>
+                <h3>{mudanca.titulo}</h3>
+                <p>{mudanca.texto}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="legal-note">
+            <h3>Base legal e princípios</h3>
+            <p>
+              O Decreto nº 12.560/2025 dispõe sobre a RNDS e as Plataformas SUS Digital e orienta a
+              federalização dos dados. Entre os princípios estão a interoperabilidade, a segurança
+              da informação, a privacidade e confidencialidade conforme a LGPD, a centralidade no
+              cidadão, a padronização, a transparência e o uso ético e legal dos dados.
+            </p>
+          </div>
+
+          <div className="trajectory">
+            <h3 className="trajectory__title">Trajetória nacional da federalização</h3>
+            <ol className="trajectory__list">
+              {TRAJETORIA.map((fase) => (
+                <li className="trajectory__item" key={fase.fase}>
+                  <span className="trajectory__periodo">{fase.periodo}</span>
+                  <div>
+                    <strong>{fase.fase}</strong>
+                    <p>{fase.descricao}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <p className="trajectory__fonte">
+              Fontes: Ministério da Saúde (Seidigi) e Conass, 2026.
+            </p>
+          </div>
+        </section>
+
+        <section className="rnds-section" id="dominios" aria-labelledby="dominios-titulo">
+          <header className="section-head">
+            <p className="section-eyebrow">DOMÍNIOS DO PLANO</p>
+            <h2 id="dominios-titulo">O andamento de cada frente</h2>
+            <p className="section-lead">
+              A estratégia está organizada em quatro domínios complementares. A situação abaixo foi
+              apresentada na Oficina Online de Apresentação dos Planos de Trabalho (agosto/2026).
+            </p>
+          </header>
+
+          <div className="status-legend" aria-label="Legenda de status">
+            <span className="status-legend__label">Legenda</span>
+            {LEGENDA_STATUS.map((item) => (
+              <span
+                className={`status-badge status-badge--${item.status}`}
+                key={item.status}
+              >
+                {item.rotulo}
+              </span>
+            ))}
+          </div>
 
           <div className="dominios-grid">
             {DOMINIOS.map((dominio) => (
@@ -435,48 +619,65 @@ export default function HomePage() {
                         <span className={`status-badge status-badge--${item.status}`}>
                           {item.rotulo}
                         </span>
-                      ) : null}
+                      ) : (
+                        <span className="status-badge status-badge--sem_status">Em definição</span>
+                      )}
                     </li>
                   ))}
                 </ul>
               </article>
             ))}
           </div>
+
+          <p className="inline-note">
+            O domínio de Comunicação está organizado em camadas de atuação e o status das camadas
+            não foi detalhado na apresentação de agosto/2026.
+          </p>
         </section>
 
-        <section className="timeline-section" id="onde-estamos">
-          <p>ONDE ESTAMOS</p>
-          <h2>Etapas da federalização em MS</h2>
-
-          <p className="notice">
-            As etapas abaixo seguem o Plano de Trabalho da Federalização da RNDS — V.2 (MS, 2026) e
-            serão atualizadas conforme o andamento oficial do projeto.
-          </p>
+        <section className="rnds-section" id="plano" aria-labelledby="plano-titulo">
+          <header className="section-head">
+            <p className="section-eyebrow">ONDE ESTAMOS</p>
+            <h2 id="plano-titulo">Etapas da federalização em MS</h2>
+            <p className="section-lead">
+              As etapas seguem o Plano de Trabalho da Federalização da RNDS — V.2 (MS, 2026) e serão
+              atualizadas conforme o andamento oficial do projeto.
+            </p>
+          </header>
 
           <ol className="timeline">
             {ETAPAS.map((etapa) => (
               <li className="timeline-item" key={etapa.ordem}>
-                <b>Etapa {etapa.ordem}</b>
-                <div>
+                <div className="timeline-item__marker">
+                  <b>Etapa {etapa.ordem}</b>
+                  <span className="timeline-item__periodo">{etapa.periodo}</span>
+                </div>
+                <div className="timeline-item__body">
                   <strong className="timeline-item__title">{etapa.nome}</strong>
                   <span className={`status-badge status-badge--${etapa.status}`}>
                     {etapa.rotuloStatus}
                   </span>
                   <p>{etapa.descricao}</p>
+                  <ul className="timeline-item__entregas">
+                    {etapa.entregas.map((entrega) => (
+                      <li key={entrega}>{entrega}</li>
+                    ))}
+                  </ul>
                 </div>
               </li>
             ))}
           </ol>
         </section>
 
-        <section className="timeline-section" id="equipe">
-          <p>EQUIPE DE REFERÊNCIA</p>
-          <h2>Quem conduz o projeto em MS</h2>
-
-          <p className="notice">
-            Titulares e suplentes de cada domínio, conforme a composição apresentada na Oficina
-            (agosto/2026).
-          </p>
+        <section className="rnds-section" id="equipe" aria-labelledby="equipe-titulo">
+          <header className="section-head">
+            <p className="section-eyebrow">EQUIPE DE REFERÊNCIA</p>
+            <h2 id="equipe-titulo">Quem conduz o projeto em MS</h2>
+            <p className="section-lead">
+              Titulares e suplentes de cada domínio, conforme a composição apresentada na Oficina
+              (agosto/2026).
+            </p>
+          </header>
 
           <div className="equipe-grid">
             {EQUIPE.map((membro) => (
@@ -495,14 +696,14 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="documents" id="documentos">
+        <section className="documents" id="documentos" aria-labelledby="documentos-titulo">
           <div className="documents__title">
             <span className="documents__icon">
               <IconePasta />
             </span>
             <div>
               <p>PLANO DE TRABALHO</p>
-              <h2>Documento oficial</h2>
+              <h2 id="documentos-titulo">Documentos oficiais</h2>
               <span>
                 Plano de Trabalho da Federalização da RNDS — V.2 (MS, 24/07/2026) e Oficina de
                 Apresentação dos Planos de Trabalho (agosto/2026).
@@ -517,7 +718,7 @@ export default function HomePage() {
                 <p className="anexo-card__meta">{documento.meta}</p>
                 <p className="anexo-card__desc">{documento.descricao}</p>
                 <a className="anexo-card__link" href={documento.href} download>
-                  {documento.cta}
+                  {documento.cta} <span aria-hidden="true">↓</span>
                 </a>
               </article>
             ))}
@@ -535,7 +736,7 @@ export default function HomePage() {
             </p>
           </div>
           <p className="closing__cta">
-            <Link className="btn-primary" href="#onde-estamos">
+            <Link className="btn-primary" href="#plano">
               Ver as etapas
             </Link>
           </p>
