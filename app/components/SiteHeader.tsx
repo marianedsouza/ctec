@@ -9,7 +9,7 @@ export default function SiteHeader() {
     <header className="site-header">
       <div className="site-header__inner">
         <Link href="/" className="site-brand">
-          <img src="/6.png" alt="Superintendências SES-MS" height={50} style={{ width: 'auto' }} />
+          <img src="/6.png" alt="Superintendências SES-MS" height={80} style={{ width: 'auto' }} />
         </Link>
 
         <nav className="site-nav" aria-label="Navegação principal">
