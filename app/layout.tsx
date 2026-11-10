@@ -17,8 +17,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const anoAtual = new Date().getFullYear();
-
   return (
     <html lang="pt-BR">
       <body>
@@ -33,14 +31,7 @@ export default function RootLayout({
           <footer className="site-footer">
             <div className="site-footer__inner">
               <div className="site-footer__brand">
-                <span className="site-footer__coat" aria-hidden="true">
-                  SES
-                </span>
-                <span>
-                  Wiki SES-MS
-                  <br />
-                  Secretaria de Estado de Saúde de Mato Grosso do Sul
-                </span>
+                <img src="/logo-superintendencias.png" alt="Superintendências SES-MS" height={45} style={{ width: 'auto' }} />
               </div>
 
               <div className="site-footer__links">
@@ -49,12 +40,6 @@ export default function RootLayout({
                 <Link href="/#plano">Plano de Trabalho</Link> ·{" "}
                 <Link href="/#equipe">Equipe</Link> ·{" "}
                 <Link href="/#documentos">Documentos</Link>
-              </div>
-
-              <div className="site-footer__meta">
-                © {anoAtual} SES-MS — Federalização da RNDS em Mato Grosso do Sul.
-                <br />
-                Identidade visual provisória, pendente dos ativos oficiais da marca.
               </div>
             </div>
           </footer>

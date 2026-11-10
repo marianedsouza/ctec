@@ -9,15 +9,7 @@ export default function SiteHeader() {
     <header className="site-header">
       <div className="site-header__inner">
         <Link href="/" className="site-brand">
-          <span className="site-brand__mark" aria-hidden="true">
-            SES
-          </span>
-          <span>
-            <span className="site-brand__title">SES-MS</span>
-            <span className="site-brand__subtitle">
-              Secretaria de Estado de Saúde de Mato Grosso do Sul
-            </span>
-          </span>
+          <img src="/logo-superintendencias.png" alt="Superintendências SES-MS" height={50} style={{ width: 'auto' }} />
         </Link>
 
         <nav className="site-nav" aria-label="Navegação principal">
